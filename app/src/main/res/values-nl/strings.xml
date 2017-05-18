@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Essteling</string>
+    <string name="activity_about_creatortext">Gemaakt door : B3</string>
+    <string name="activity_about_versiontext">Versie 0.0.0</string>
+    <string name="activity_about_maintext">Deze app is gemaakt voor attractiepar \"De Essteling\". Het doel van deze applicatie is het vermaken van mensen in de wachtrijen voor de attracties. Er is ook een mogelijkheid om informatie te geven over de wachtrijden e.d.</string>
+</resources>
