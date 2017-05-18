@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Essteling</string>
+    <string name="activity_about_maintext">bladiebladiebladiebladiebladieblabladiebladiebladiebladiebladieblabladiebladiebladiebladiebladieblabladiebladiebladiebladiebladieblabladiebladiebladiebladiebladiebla</string>
+    <string name="activity_about_creatortext">Created by : B3</string>
+    <string name="activity_about_versiontext">Version 0.0.0</string>
 </resources>
