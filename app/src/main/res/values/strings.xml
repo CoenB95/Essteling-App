@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Essteling</string>
+    <string name="homepage_scoreboard_subtitle_format">Test</string>
+    <string name="dummy" translatable="false">Dummy</string>
+    <string name="homepage_nearby_attractions">Nearby Attractions</string>
+    <string name="homepage_nearby_non_found">Nothing nearby found</string>
     <string name="title_activity_main">MainActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
