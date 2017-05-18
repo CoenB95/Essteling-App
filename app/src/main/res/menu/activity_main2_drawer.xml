@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <group android:checkableBehavior="single">
+    <item
+        android:id="@+id/menu_home"
+        android:title="> Home" />
+    <item
+        android:id="@+id/menu_attracties"
+        android:title="> Attracties" />
+    </group>
+    <item
+        android:id="@+id/menu_help"
+        android:title="> Help" />
+    <item
+        android:id="@+id/menu_vereisten"
+        android:title="> Vereisten" />
+    <item
+        android:id="@+id/menu_over"
+        android:title="> Over" />
+
+</menu>
