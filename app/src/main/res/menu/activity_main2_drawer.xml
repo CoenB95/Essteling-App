@@ -4,21 +4,18 @@
 
 
     <group android:checkableBehavior="single">
-    <item
-        android:id="@+id/menu_home"
-        android:title="> Home" />
-    <item
-        android:id="@+id/menu_attracties"
-        android:title="> Attracties" />
+        <item
+            android:id="@+id/menu_home"
+            android:title="► Home" />
+        <item
+            android:id="@+id/menu_attracties"
+            android:title="► Attracties" />
     </group>
     <item
         android:id="@+id/menu_help"
-        android:title="> Help" />
-    <item
-        android:id="@+id/menu_vereisten"
-        android:title="> Vereisten" />
+        android:title="► Help" />
     <item
         android:id="@+id/menu_over"
-        android:title="> Over" />
+        android:title="► Over" />
 
 </menu>

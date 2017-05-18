@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import nl.l15vdef.essteling.R;
+import nl.l15vdef.essteling.activities.attractionChooser.AttractionChooserActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,23 +82,26 @@ public class MainActivity extends AppCompatActivity
 
     private void displaySelectedScreen(int id){
         Fragment fragment = null;
-/**
+
         switch(id){
-            case R.id.nav_inkomend:
-                fragment = new Inkomend();
+            case R.id.menu_attracties:
+                fragment = new AttractionChooserActivity();
                 break;
-            case R.id.nav_uitgaand:
-                fragment = new Uitgaand();
+            case R.id.menu_help:
+//                fragment = new ();
                 break;
-            case R.id.nav_send:
-                fragment = new Verzenden();
+            case R.id.menu_home:
+                fragment = new HomepageActivity();
+                break;
+            case R.id.menu_over:
+                fragment = new AboutActivity();
                 break;
         }
         if(fragment != null){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_main, fragment);
             ft.commit();
-        }**/
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
