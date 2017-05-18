@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.AboutActivity"/>
-        <activity android:name=".activities.AttractionChooserActivity"/>
+        <Fragment android:name=".activities.attractionChooser.AttractionChooserActivity"/>
         <activity android:name=".activities.AttractionDetailActivity"/>
     </application>
 

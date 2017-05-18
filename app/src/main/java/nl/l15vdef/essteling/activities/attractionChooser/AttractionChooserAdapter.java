@@ -41,7 +41,9 @@ public class AttractionChooserAdapter extends ArrayAdapter {
 
 
         ImageView attraction = (ImageView) convertView.findViewById(R.id.activit_about_list_of_attractions_custom_row_attraction_image_id);
-        attraction.setImageDrawable(( (Attraction) getItem(position)).getImage());
+        attraction.setImageDrawable(convertView.getResources().getDrawable(
+                ((Attraction) getItem(position)).getImage()
+        ));
 
         TextView title = (TextView) convertView.findViewById(R.id.activit_about_list_of_attractions_custom_row_title_attraction);
         title.setText( ((Attraction) getItem(position)).getName());
