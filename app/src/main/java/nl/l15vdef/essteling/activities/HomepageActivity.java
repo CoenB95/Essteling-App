@@ -1,10 +1,14 @@
 package nl.l15vdef.essteling.activities;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import java.util.Arrays;
@@ -15,16 +19,17 @@ import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.Score;
 import nl.l15vdef.essteling.ScoreAdapter;
 
-public class HomepageActivity extends AppCompatActivity {
+public class HomepageActivity extends Fragment {
 
     private ProgressBar progressBar;
 	private RecyclerView scoreRecyclerView;
 	private ScoreAdapter scoreAdapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homepage);
+	@Nullable
+	@Override
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.activity_homepage, container, false);
+
 
 	    scoreAdapter = new ScoreAdapter();
 	    scoreAdapter.setAll(Arrays.asList(
@@ -35,11 +40,13 @@ public class HomepageActivity extends AppCompatActivity {
 	    		new Score("Jaap1995", 2000)
 	    ));
 
-	    progressBar = (ProgressBar) findViewById(R.id.progressBar);
-	    scoreRecyclerView = (RecyclerView) findViewById(R.id.scoreboardRecyclerView);
-	    scoreRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+	    progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+		progressBar.setVisibility(View.INVISIBLE);
+
+	    scoreRecyclerView = (RecyclerView) view.findViewById(R.id.scoreboardRecyclerView);
+	    scoreRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 	    scoreRecyclerView.setAdapter(scoreAdapter);
 
-	    progressBar.setVisibility(View.INVISIBLE);
+		return view;
     }
 }

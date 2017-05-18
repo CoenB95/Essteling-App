@@ -2,8 +2,6 @@ package nl.l15vdef.essteling;
 
 import android.support.annotation.NonNull;
 
-import java.util.Comparator;
-
 /**
  * @author CoenB95
  */
