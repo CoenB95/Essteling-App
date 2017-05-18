@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:orientation="vertical"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="25dp">
+
+    <ImageView
+        android:id="@+id/activit_about_list_of_attractions_custom_row_attraction_image_id"
+        android:layout_width="86dp"
+        android:layout_height="85dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/activit_about_list_of_attractions_custom_row_amount_online_players_id"
+        android:layout_width="249dp"
+        android:layout_height="21dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:text="70 player"
+        app:layout_constraintLeft_toRightOf="@+id/activit_about_list_of_attractions_custom_row_attraction_image_id"
+        app:layout_constraintTop_toBottomOf="@+id/activit_about_list_of_attractions_custom_row_title_attraction" />
+
+    <TextView
+        android:id="@+id/activit_about_list_of_attractions_custom_row_title_attraction"
+        android:layout_width="248dp"
+        android:layout_height="37dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Sjoris en de Sjaak"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toRightOf="@+id/activit_about_list_of_attractions_custom_row_attraction_image_id"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>
