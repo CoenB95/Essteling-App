@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Essteling</string>
+    <string name="homepage_nearby_attractions">Nabije attracties</string>
+    <string name="homepage_scoreboard_subtitle_format">Test</string>
+    <string name="homepage_nearby_non_found">Geen gevonden</string>
+</resources>
