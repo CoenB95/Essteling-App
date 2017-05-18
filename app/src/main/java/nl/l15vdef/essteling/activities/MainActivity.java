@@ -16,6 +16,7 @@ import android.view.MenuItem;
 
 import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.activities.attractionChooser.AttractionChooserActivity;
+import nl.l15vdef.essteling.activities.helpMenu.HelpMenuActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = new AttractionChooserActivity();
                 break;
             case R.id.menu_help:
-//                fragment = new ();
+                fragment = new HelpMenuActivity();
                 break;
             case R.id.menu_home:
                 fragment = new HomepageActivity();
