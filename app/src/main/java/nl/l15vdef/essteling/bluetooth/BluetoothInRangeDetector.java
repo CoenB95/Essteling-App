@@ -164,23 +164,9 @@ public class BluetoothInRangeDetector {
     }
 }
 
-/**
- * Interface for the listener for bluetoothInRageDetector this method gets called in
- * BluetoothInRageDetector when refreshes the check for bluetooth devices.
- */
-interface BluetoothInRangeChanged {
-    void bluetoothChecked(Map<String, Boolean> inRange);
-}
-
-/**
- * Exception that's gets thrown when the android device doesn't support bluetooth
- */
-class BluetoothNotAvailableException extends Exception {}
 
 
-/**
- * Exception that's gets thrown when the user clicks cancel when asked if the user wants to give
- * this application location permission
- */
-class LocationPermissionNotExceptedException extends Exception{}
+
+
+
 
