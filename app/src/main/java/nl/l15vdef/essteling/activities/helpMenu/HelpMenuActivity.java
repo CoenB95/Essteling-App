@@ -1,19 +1,17 @@
 package nl.l15vdef.essteling.activities.helpMenu;
 
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import nl.l15vdef.essteling.R;
-import nl.l15vdef.essteling.activities.data.FAQ;
+import nl.l15vdef.essteling.data.FAQ;
 
 public class HelpMenuActivity extends Fragment {
 

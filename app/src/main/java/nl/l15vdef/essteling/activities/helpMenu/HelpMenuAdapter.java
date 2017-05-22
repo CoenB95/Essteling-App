@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import nl.l15vdef.essteling.R;
-import nl.l15vdef.essteling.activities.data.FAQ;
+import nl.l15vdef.essteling.data.FAQ;
 
 /**
  * Created by Arjan on 18-5-2017.

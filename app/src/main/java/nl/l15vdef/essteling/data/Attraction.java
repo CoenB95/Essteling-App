@@ -1,6 +1,4 @@
-package nl.l15vdef.essteling.activities.data;
-
-import android.graphics.drawable.Drawable;
+package nl.l15vdef.essteling.data;
 
 import java.io.Serializable;
 

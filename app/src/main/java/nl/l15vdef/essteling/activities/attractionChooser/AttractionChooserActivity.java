@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.l15vdef.essteling.R;
-import nl.l15vdef.essteling.activities.data.Attraction;
+import nl.l15vdef.essteling.data.Attraction;
 
 public class AttractionChooserActivity extends Fragment {
 

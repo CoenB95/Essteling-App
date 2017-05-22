@@ -1,4 +1,4 @@
-package nl.l15vdef.essteling.activities.data;
+package nl.l15vdef.essteling.data;
 
 /**
  * Created by Arjan on 18-5-2017.
