@@ -19,4 +19,12 @@
     <string name="detail_best_overall">Best of All time</string>
     <string name="essteling_games">Essteling Games</string>
     <string name="navigation_menu">Navigationmenu</string>
+    <string name="wifi_switch">Use WIFI only</string>
+    <string name="language">Language</string>
+
+
+    <string-array name="country_arrays">
+        <item>English</item>
+        <item>Dutch</item>
+    </string-array>
 </resources>
