@@ -1,6 +1,8 @@
 package nl.l15vdef.essteling.activities;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +16,7 @@ import java.util.Arrays;
 import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.Score;
 import nl.l15vdef.essteling.ScoreAdapter;
+import nl.l15vdef.essteling.ScoreLayoutManager;
 
 public class AttractionDetailFragment extends Fragment {
 
@@ -27,17 +30,21 @@ public class AttractionDetailFragment extends Fragment {
 		ScoreAdapter scoreYearAdapter = createDummyAdapter();
 		ScoreAdapter scoreAllAdapter = createDummyAdapter();
 
-		RecyclerView scoreDayRecyclerView = createRecyclerView(view, scoreDayAdapter);
-		RecyclerView scoreWeekRecyclerView = createRecyclerView(view, scoreWeekAdapter);
-		RecyclerView scoreYearRecyclerView = createRecyclerView(view, scoreYearAdapter);
-		RecyclerView scoreAllRecyclerView = createRecyclerView(view, scoreAllAdapter);
+		RecyclerView scoreDayRecyclerView = createRecyclerView(R.id.scoreboardDayRecyclerView,
+				view, scoreDayAdapter);
+		RecyclerView scoreWeekRecyclerView = createRecyclerView(R.id.scoreboardWeekRecyclerView,
+				view, scoreWeekAdapter);
+		RecyclerView scoreYearRecyclerView = createRecyclerView(R.id.scoreboardYearRecyclerView,
+				view, scoreYearAdapter);
+		RecyclerView scoreAllRecyclerView = createRecyclerView(R.id.scoreboardAllRecyclerView,
+				view, scoreAllAdapter);
 
 		return view;
     }
 
-    private RecyclerView createRecyclerView(View view, ScoreAdapter adapter) {
-	    RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.scoreboardRecyclerView);
-	    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    private RecyclerView createRecyclerView(@IdRes int viewId, View view, ScoreAdapter adapter) {
+	    RecyclerView recyclerView = (RecyclerView) view.findViewById(viewId);
+	    recyclerView.setLayoutManager(new ScoreLayoutManager(getContext()).enableScrolling(false));
 	    recyclerView.setAdapter(adapter);
 	    return recyclerView;
     }

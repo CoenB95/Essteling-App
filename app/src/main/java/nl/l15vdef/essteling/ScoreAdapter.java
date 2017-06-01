@@ -1,9 +1,11 @@
 package nl.l15vdef.essteling;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ import java.util.List;
  */
 
 public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreHolder> {
+
+	private OnScoreClickListener onItemClickListener;
 	private List<Score> scores;
 
 	public ScoreAdapter() {
@@ -30,7 +34,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreHolder>
 
 	@Override
 	public void onBindViewHolder(ScoreHolder holder, int position) {
-		holder.setScore(position, scores.get(position));
+		holder.setScore(position + 1, scores.get(position));
 	}
 
 	@Override
@@ -49,6 +53,10 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreHolder>
 		notifyDataSetChanged();
 	}
 
+	public void setOnScoreClickListener(OnScoreClickListener listener) {
+		onItemClickListener = listener;
+	}
+
 	public class ScoreHolder extends RecyclerView.ViewHolder {
 
 		private Score score;
@@ -58,6 +66,13 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreHolder>
 
 		public ScoreHolder(View itemView) {
 			super(itemView);
+			ConstraintLayout layout = (ConstraintLayout) itemView.findViewById(R.id.layout);
+			layout.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (onItemClickListener != null) onItemClickListener.onScoreClicked(score);
+				}
+			});
 			indexTextView = (TextView) itemView.findViewById(R.id.scoreIndexTextView);
 			nameTextView = (TextView) itemView.findViewById(R.id.scoreNameTextView);
 			scoreTextView = (TextView) itemView.findViewById(R.id.scorePointsTextView);
