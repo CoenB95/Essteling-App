@@ -98,15 +98,13 @@ public class HomepageActivity extends Fragment {
 		return view;
     }
 
+
 	@Override
-	public void onDetach() {
-		super.onDetach();
+	public void onStop() {
+		super.onStop();
+		Log.d("stop","stop");
 		if (bird != null) bird.stop();
 	}
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		if (bird != null) bird.stop();
-	}
+
 }

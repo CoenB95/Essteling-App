@@ -37,6 +37,7 @@ public class BluetoothInRangeDetector implements Runnable{
     private Activity activity;
     private int updateTime;
     private Handler permissionHandler;
+    private BroadcastReceiver mReceiver;
     /**
      *
      *
@@ -92,19 +93,44 @@ public class BluetoothInRangeDetector implements Runnable{
 
         permissionHandler = new Handler();
         bluetoothSearchHandler = new Handler();
+
+        //launches the receiver
+        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+
+        //when an bluetooth device is detected this happens
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if(BluetoothDevice.ACTION_FOUND.equals(action)){
+                    BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    //if an name == null then don't add it
+                    if(device.getName() != null) {
+                        bluetoothDevices.add(device);
+                        Log.d("BluetoothRangeDetector", "found " + device.getName());
+                    }
+                }
+            }
+        };
+
+        activity.registerReceiver(mReceiver, filter);
+
         permissionHandler.post(this);
 
-
-
     }
+
+
 
 
     /**
      * This method stops the bluetooth search thread from running
      */
     public void stop(){
+        activity.unregisterReceiver(mReceiver);
         running = false;
+        mBluetoothAdapter.cancelDiscovery();
     }
+
 
 
 
@@ -114,25 +140,7 @@ public class BluetoothInRangeDetector implements Runnable{
         if(ContextCompat.checkSelfPermission(activity,
                 Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-            //when an bluetooth device is detected this happens
-            BroadcastReceiver mReceiver = new BroadcastReceiver() {
-                @Override
-                public void onReceive(Context context, Intent intent) {
-                    String action = intent.getAction();
-                    if(BluetoothDevice.ACTION_FOUND.equals(action)){
-                        BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                        //if an name == null then don't add it
-                        if(device.getName() != null) {
-                            bluetoothDevices.add(device);
-                            Log.d("BluetoothRangeDetector", "found " + device.getName());
-                        }
-                    }
-                }
-            };
 
-            //launches the receiver
-            IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-            activity.registerReceiver(mReceiver, filter);
 
             //thread that loops every updateTime seconds
             //checks if the device name corresponds and sets inRanges to true if so
@@ -159,10 +167,11 @@ public class BluetoothInRangeDetector implements Runnable{
                     //clear devices and research
                     bluetoothDevices.clear();
                     mBluetoothAdapter.cancelDiscovery();
-                    mBluetoothAdapter.startDiscovery();
-                    listener.bluetoothChecked(inRanges);
-                    if(running)
-                        bluetoothSearchHandler.postDelayed(this,updateTime);
+                    if(running) {
+                        mBluetoothAdapter.startDiscovery();
+                        listener.bluetoothChecked(inRanges);
+                        bluetoothSearchHandler.postDelayed(this, updateTime);
+                    }
                 }
             };
             running = true;

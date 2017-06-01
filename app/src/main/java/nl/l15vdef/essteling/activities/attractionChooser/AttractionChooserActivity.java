@@ -57,7 +57,7 @@ public class AttractionChooserActivity extends Fragment {
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_main, adf)
-                        .addToBackStack(null)
+                        .addToBackStack( "tag" )
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit();
             }
