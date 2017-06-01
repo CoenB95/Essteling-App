@@ -57,9 +57,6 @@ public class HomepageActivity extends Fragment {
 		}
 
 	    progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-		progressBar.getIndeterminateDrawable().setColorFilter(
-				Color.rgb(184,55,139), android.graphics.PorterDuff.Mode.SRC_IN);
-		progressBar.setVisibility(View.VISIBLE);
 
 		try {
 			new BluetoothInRangeDetector(new BluetoothInRangeChanged() {
@@ -74,6 +71,10 @@ public class HomepageActivity extends Fragment {
 		} catch (BluetoothNotAvailableException | LocationPermissionNotExceptedException e) {
 			e.printStackTrace();
 		}
+
+		progressBar.getIndeterminateDrawable().setColorFilter(
+				Color.rgb(184,55,139), android.graphics.PorterDuff.Mode.SRC_IN);
+		progressBar.setVisibility(View.VISIBLE);
 
 		scoreRecyclerView = (RecyclerView) view.findViewById(R.id.scoreboardRecyclerView);
 	    scoreRecyclerView.setLayoutManager(new ScoreLayoutManager(getContext())
