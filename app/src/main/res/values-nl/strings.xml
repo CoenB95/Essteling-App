@@ -16,4 +16,12 @@
     <string name="detail_best_overall">Top Altijd</string>
     <string name="essteling_games">Essteling Spellen</string>
     <string name="navigation_menu">Navigatiemenu</string>
+    <string name="wifi_switch">Gebruik alleen WIFI</string>
+    <string name="language">Taal</string>
+    <string name="activity_about_versiontext" translatable="false"></string>
+
+    <string-array name="country_arrays">
+        <item>Engels</item>
+        <item>Nederlands</item>
+    </string-array>
 </resources>

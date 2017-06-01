@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity
 
         ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE} , 1);
         ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE} , 2);
+        ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.INTERNET} , 3);
+        ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.ACCESS_NETWORK_STATE} ,4);
     }
 
     @Override
@@ -58,20 +60,16 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-   // @Override
-    /**public boolean onOptionsItemSelected(MenuItem item) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         Fragment fragment = null;
-        //noinspection SimplifiableIfStatement
         switch(id){
-            case R.id.action_over:
-                fragment = new About();
-                break;
             case R.id.action_settings:
-                fragment = new Settings();
+                fragment = new OptionFragment();
         }
         if(fragment != null){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -79,7 +77,7 @@ public class MainActivity extends AppCompatActivity
             ft.commit();
         }
         return super.onOptionsItemSelected(item);
-    }**/
+    }
 
     private void displaySelectedScreen(int id){
         Fragment fragment = null;
