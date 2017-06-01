@@ -75,7 +75,6 @@ public class HomepageActivity extends Fragment {
 			e.printStackTrace();
 		}
 
-
 		scoreRecyclerView = (RecyclerView) view.findViewById(R.id.scoreboardRecyclerView);
 	    scoreRecyclerView.setLayoutManager(new ScoreLayoutManager(getContext())
 			    .enableScrolling(false));
