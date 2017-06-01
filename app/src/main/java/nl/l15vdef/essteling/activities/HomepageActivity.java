@@ -1,10 +1,13 @@
 package nl.l15vdef.essteling.activities;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +39,8 @@ public class HomepageActivity extends Fragment {
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.activity_homepage, container, false);
 
+		Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+		toolbar.setTitle("Home");
 	    scoreAdapter = new ScoreAdapter();
 	    scoreAdapter.setAll(Arrays.asList(
 			    new Score("LiPa450", 1676),
@@ -52,6 +57,9 @@ public class HomepageActivity extends Fragment {
 		}
 
 	    progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+		progressBar.getIndeterminateDrawable().setColorFilter(
+				Color.rgb(184,55,139), android.graphics.PorterDuff.Mode.SRC_IN);
+		progressBar.setVisibility(View.VISIBLE);
 
 		try {
 			new BluetoothInRangeDetector(new BluetoothInRangeChanged() {
