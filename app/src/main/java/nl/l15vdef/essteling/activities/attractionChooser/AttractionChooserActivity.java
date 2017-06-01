@@ -2,6 +2,7 @@ package nl.l15vdef.essteling.activities.attractionChooser;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +81,7 @@ public class AttractionChooserActivity extends Fragment {
                         .beginTransaction()
                         .replace(R.id.content_main, adf)
                         .addToBackStack(null)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit();
             }
         });
