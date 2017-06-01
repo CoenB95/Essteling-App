@@ -11,6 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
@@ -33,6 +36,7 @@ public class HomepageActivity extends Fragment {
     private ProgressBar progressBar;
 	private RecyclerView scoreRecyclerView;
 	private ScoreAdapter scoreAdapter;
+	private BluetoothInRangeDetector bird;
 
 	@Nullable
 	@Override
@@ -51,26 +55,38 @@ public class HomepageActivity extends Fragment {
 	    ));
 
 		List<String> strings = new ArrayList<>();
+		final List<String> attractions = new ArrayList<>();
+		final ArrayAdapter<String> attractionslistAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1,attractions);
 		for (Attraction attraction : Attraction.getAttractions()) {
-			strings.add(attraction.getName().replaceAll(" ",""));
-			Log.d("test",attraction.getName().replaceAll(" ",""));
+			strings.add(attraction.getName());
+			strings.add("NLQUIST02");
 		}
 
 	    progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
 		try {
-			new BluetoothInRangeDetector(new BluetoothInRangeChanged() {
+			bird = new BluetoothInRangeDetector(new BluetoothInRangeChanged() {
                 @Override
                 public void bluetoothChecked(Map<String, Boolean> inRange) {
+					attractions.clear();
 					for (String s : inRange.keySet()) {
-						if(inRange.get(s))
-							Log.d(getTag() + "Bluetooth",s + " was found");
+						if(inRange.get(s)) {
+							attractions.add(s);
+							Log.d(getTag() + "Bluetooth", s + " was found");
+						}
 					}
+					if(attractions.size() <= 0){
+						progressBar.setVisibility(View.VISIBLE);
+					}else progressBar.setVisibility(View.INVISIBLE);
+					attractionslistAdapter.notifyDataSetChanged();
                 }
-            }, strings, getActivity(), 15000);
+            }, strings, getActivity(), 10000);
 		} catch (BluetoothNotAvailableException | LocationPermissionNotExceptedException e) {
 			e.printStackTrace();
 		}
+
+		ListView attractionsList  = (ListView) view.findViewById(R.id.fragement_homescreen_attractionslist_id);
+		attractionsList.setAdapter(attractionslistAdapter);
 
 		progressBar.getIndeterminateDrawable().setColorFilter(
 				Color.rgb(184,55,139), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -83,4 +99,17 @@ public class HomepageActivity extends Fragment {
 
 		return view;
     }
+
+
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		bird.stop();
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		bird.stop();
+	}
 }

@@ -158,6 +158,7 @@ public class BluetoothInRangeDetector implements Runnable{
                     }
                     //clear devices and research
                     bluetoothDevices.clear();
+                    mBluetoothAdapter.cancelDiscovery();
                     mBluetoothAdapter.startDiscovery();
                     listener.bluetoothChecked(inRanges);
                     if(running)
