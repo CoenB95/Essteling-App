@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity
             ft.commit();
         }
         return super.onOptionsItemSelected(item);
-    }**/
+    }
 
     private void displaySelectedScreen(int id){
         Fragment fragment = null;
