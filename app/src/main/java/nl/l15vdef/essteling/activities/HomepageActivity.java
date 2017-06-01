@@ -1,5 +1,7 @@
 package nl.l15vdef.essteling.activities;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -41,7 +43,10 @@ public class HomepageActivity extends Fragment {
 	    ));
 
 	    progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-		progressBar.setVisibility(View.INVISIBLE);
+		progressBar.getIndeterminateDrawable().setColorFilter(
+				Color.rgb(184,55,139), android.graphics.PorterDuff.Mode.SRC_IN);
+		progressBar.setVisibility(View.VISIBLE);
+
 
 	    scoreRecyclerView = (RecyclerView) view.findViewById(R.id.scoreboardRecyclerView);
 	    scoreRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
