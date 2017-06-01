@@ -58,20 +58,16 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-   // @Override
-    /**public boolean onOptionsItemSelected(MenuItem item) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         Fragment fragment = null;
-        //noinspection SimplifiableIfStatement
         switch(id){
-            case R.id.action_over:
-                fragment = new About();
-                break;
             case R.id.action_settings:
-                fragment = new Settings();
+                fragment = new OptionFragment();
         }
         if(fragment != null){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
