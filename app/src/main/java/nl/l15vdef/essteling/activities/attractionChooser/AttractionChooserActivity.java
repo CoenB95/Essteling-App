@@ -1,5 +1,6 @@
 package nl.l15vdef.essteling.activities.attractionChooser;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.l15vdef.essteling.R;
+import nl.l15vdef.essteling.activities.GameScreenActivity;
 import nl.l15vdef.essteling.data.Attraction;
 
 public class AttractionChooserActivity extends Fragment {
@@ -74,7 +76,6 @@ public class AttractionChooserActivity extends Fragment {
         listOfAttractions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
             }
         });
 

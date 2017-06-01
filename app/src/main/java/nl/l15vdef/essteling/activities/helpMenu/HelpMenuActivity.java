@@ -35,7 +35,11 @@ public class HelpMenuActivity extends Fragment {
 
         list = new ArrayList<>();
         list.add(new FAQ("Is dit een test?","Dit is inderdaad een test. Dit antwoord staat ook nog" +
-                "vol met willekeurige tekst, om te testen hoe de adapter hierop reageert."));
+                " vol met willekeurige tekst, om te testen hoe de adapter hierop reageert."));
+        list.add(new FAQ("Is dit een test om te kijken hoe de adapter omgaat met een langere vraag?",
+                "Dit is inderderdaad een test om te kijken hoe de adapter omgaat met een langere "+
+                "vragen en misschien zelfs ook teksten, ligt eraan hoeveel ik hier bij kan verzinnen, " +
+                " wat eigenlijk vrij weinig is."));
 
 
 
