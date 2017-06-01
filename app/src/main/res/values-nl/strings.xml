@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Essteling</string>
+    <string name="homepage_nearby_attractions">Nabije attracties</string>
+    <string name="homepage_scoreboard_subtitle_format">Test</string>
+    <string name="homepage_nearby_non_found">Geen gevonden</string>
+    <string name="activity_about_creatortext">Gemaakt door : B3</string>
+    <string name="activity_about_maintext">Deze app is gemaakt voor attractiepar \"De Essteling\". Het doel van deze applicatie is het vermaken van mensen in de wachtrijen voor de attracties. Er is ook een mogelijkheid om informatie te geven over de wachtrijden e.d.</string>
+    <string name="navigation_drawer_close">Sluit navigatie</string>
+    <string name="navigation_drawer_open">Open navigatie</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Instellingen</string>
+    <string name="detail_best_of_day">Top Dag</string>
+    <string name="detail_best_of_week">Top Week</string>
+    <string name="detail_best_of_year">Top Jaar</string>
+    <string name="detail_best_overall">Top Altijd</string>
+    <string name="essteling_games">Essteling Spellen</string>
+    <string name="navigation_menu">Navigatiemenu</string>
+</resources>
