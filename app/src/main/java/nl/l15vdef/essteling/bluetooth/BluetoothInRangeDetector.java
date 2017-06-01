@@ -9,10 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.PermissionChecker;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ import java.util.Map;
  * Created by B3(Maarten Nieuwenhuize en Kevin Quist) on 18/05/2017.
  */
 
-public class BluetoothInRangeDetector {
+public class BluetoothInRangeDetector implements Runnable{
     private Map<String,Boolean> inRanges;
     private BluetoothAdapter mBluetoothAdapter;
     private List<BluetoothDevice> bluetoothDevices; //current bluetooth devices in range
@@ -32,6 +34,9 @@ public class BluetoothInRangeDetector {
     private Runnable bluetoothSearchLoop;
     private Handler bluetoothSearchHandler;
     private boolean running;
+    private Activity activity;
+    private int updateTime;
+    private Handler permissionHandler;
     /**
      *
      *
@@ -58,6 +63,8 @@ public class BluetoothInRangeDetector {
             throws BluetoothNotAvailableException,
             LocationPermissionNotExceptedException {
         this.listener = listener;
+        this.activity = activity;
+        this.updateTime = updateTime;
 
         //init lists
         inRanges = new HashMap<>();
@@ -82,11 +89,27 @@ public class BluetoothInRangeDetector {
         //init boolean if the handler for searching should be running
         running = false;
 
-        //opens an pop up when app first launches
-        ActivityCompat.requestPermissions(activity,
-                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                1);
 
+        permissionHandler = new Handler();
+        bluetoothSearchHandler = new Handler();
+        permissionHandler.post(this);
+
+
+
+    }
+
+
+    /**
+     * This method stops the bluetooth search thread from running
+     */
+    public void stop(){
+        running = false;
+    }
+
+
+
+    @Override
+    public void run() {
         //checks if an permission is granted
         if(ContextCompat.checkSelfPermission(activity,
                 Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -114,7 +137,7 @@ public class BluetoothInRangeDetector {
             //thread that loops every updateTime seconds
             //checks if the device name corresponds and sets inRanges to true if so
             //if not sets it to false
-            bluetoothSearchHandler = new Handler();
+
             bluetoothSearchLoop = new Runnable() {
                 @Override
                 public void run() {
@@ -141,26 +164,22 @@ public class BluetoothInRangeDetector {
                         bluetoothSearchHandler.postDelayed(this,updateTime);
                 }
             };
+            running = true;
+            bluetoothSearchHandler.post(bluetoothSearchLoop);
 
+        }else {
+            //opens an pop up when app first launches
+            ActivityCompat.requestPermissions(activity,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1);
+            if(Build.VERSION.SDK_INT >= 23){
+                if(activity.shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)){
+                    activity.finish();
+                }
+            }
+            permissionHandler.postDelayed(this, 1000);
+        }
 
-        }else throw new LocationPermissionNotExceptedException();
-    }
-
-
-    /**
-     * This method stops the bluetooth search thread from running
-     */
-    public void stop(){
-        running = false;
-    }
-
-
-    /**
-     * This method stops the bluetooth search thread from running
-     */
-    public void start(){
-        running = true;
-        bluetoothSearchHandler.post(bluetoothSearchLoop);
     }
 }
 
