@@ -38,30 +38,7 @@ public class AttractionChooserActivity extends Fragment {
         //inital lize attracions
         attractions = new ArrayList<>();
 
-        attractions.add(new Attraction(
-                R.drawable.attraction_sjoris_en_de_draak_image,
-                "Sjoris en de Draak","hoi"
-        ));
-        attractions.add(new Attraction(
-                R.drawable.attraction_sjoris_en_de_draak_image,
-                "Sjoris en de Draak","hoi"
-        ));
-        attractions.add(new Attraction(
-                R.drawable.attraction_sjoris_en_de_draak_image,
-                "Sjoris en de Draak","hoi"
-        ));
-        attractions.add(new Attraction(
-                R.drawable.attraction_sjoris_en_de_draak_image,
-                "Sjoris en de Draak","hoi"
-        ));
-        attractions.add(new Attraction(
-                R.drawable.attraction_sjoris_en_de_draak_image,
-                "Sjoris en de Draak","hoi"
-        ));
-        attractions.add(new Attraction(
-                R.drawable.attraction_sjoris_en_de_draak_image,
-                "Sjoris en de Draak","hoi"
-        ));
+        attractions.addAll(Attraction.getAttractions());
 
 
 

@@ -40,6 +40,18 @@ public class Attraction implements Serializable{
                 R.drawable.attraction_sjoris_en_de_draak_image,
                 "Sjoris en de Draak","hoi"
         ));
+        attractions.add(new Attraction(
+                R.drawable.anaconda_logo,
+                "Anaconda","test"
+        ));
+        attractions.add(new Attraction(
+                R.drawable.vliegende_duitser,
+                "Vliegende duitser","test"
+        ));
+        attractions.add(new Attraction(
+                R.drawable.vogel_jazz,
+                "Vogel jazz","test"
+        ));
 
         return attractions;
     }
