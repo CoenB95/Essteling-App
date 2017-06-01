@@ -16,6 +16,7 @@ import java.util.Arrays;
 import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.Score;
 import nl.l15vdef.essteling.ScoreAdapter;
+import nl.l15vdef.essteling.ScoreLayoutManager;
 
 public class AttractionDetailFragment extends Fragment {
 
@@ -43,7 +44,7 @@ public class AttractionDetailFragment extends Fragment {
 
     private RecyclerView createRecyclerView(@IdRes int viewId, View view, ScoreAdapter adapter) {
 	    RecyclerView recyclerView = (RecyclerView) view.findViewById(viewId);
-	    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+	    recyclerView.setLayoutManager(new ScoreLayoutManager(getContext()).enableScrolling(false));
 	    recyclerView.setAdapter(adapter);
 	    return recyclerView;
     }

@@ -20,6 +20,7 @@ import nl.l15vdef.essteling.OnScoreClickListener;
 import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.Score;
 import nl.l15vdef.essteling.ScoreAdapter;
+import nl.l15vdef.essteling.ScoreLayoutManager;
 
 public class HomepageActivity extends Fragment {
 
@@ -53,7 +54,8 @@ public class HomepageActivity extends Fragment {
 		progressBar.setVisibility(View.INVISIBLE);
 
 	    scoreRecyclerView = (RecyclerView) view.findViewById(R.id.scoreboardRecyclerView);
-	    scoreRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+	    scoreRecyclerView.setLayoutManager(new ScoreLayoutManager(getContext())
+			    .enableScrolling(false));
 	    scoreRecyclerView.setAdapter(scoreAdapter);
 
 		return view;
