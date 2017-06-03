@@ -92,7 +92,7 @@ public class HomepageFragment extends Fragment {
 						attractionslistAdapter.notifyDataSetChanged();
 					}
 				}
-			}, strings, getActivity(), 5000);
+			}, strings, getActivity(), 10000);
 		} catch (BluetoothNotAvailableException | LocationPermissionNotExceptedException e) {
 			e.printStackTrace();
 		}
@@ -109,7 +109,7 @@ public class HomepageFragment extends Fragment {
 		});
 
 		progressBar.getIndeterminateDrawable().setColorFilter(
-				Color.rgb(184,55,139), android.graphics.PorterDuff.Mode.SRC_IN);
+				getResources().getColor(R.color.colorAccent2), android.graphics.PorterDuff.Mode.SRC_IN);
 		progressBar.setVisibility(View.VISIBLE);
 
 		scoreRecyclerView = (RecyclerView) view.findViewById(R.id.scoreboardRecyclerView);
