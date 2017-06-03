@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="nl.l15vdef.essteling.activities.GameScreenActivity">
+    tools:context="nl.l15vdef.essteling.activities_and_fragments.GameScreenActivity">
 
     <SurfaceView
         android:id="@+id/gameSurfaceView"

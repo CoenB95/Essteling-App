@@ -1,5 +1,6 @@
-package nl.l15vdef.essteling.activities;
+package nl.l15vdef.essteling.activities_and_fragments;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -29,7 +31,7 @@ import nl.l15vdef.essteling.bluetooth.BluetoothNotAvailableException;
 import nl.l15vdef.essteling.bluetooth.LocationPermissionNotExceptedException;
 import nl.l15vdef.essteling.data.Attraction;
 
-public class HomepageActivity extends Fragment {
+public class HomepageFragment extends Fragment {
 
     private ProgressBar progressBar;
 	private RecyclerView scoreRecyclerView;
@@ -97,6 +99,14 @@ public class HomepageActivity extends Fragment {
 
 		ListView attractionsList  = (ListView) view.findViewById(R.id.fragement_homescreen_attractionslist_id);
 		attractionsList.setAdapter(attractionslistAdapter);
+
+		attractionsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent i = new Intent(getContext(),GameScreenActivity.class);
+				startActivity(i);
+			}
+		});
 
 		progressBar.getIndeterminateDrawable().setColorFilter(
 				Color.rgb(184,55,139), android.graphics.PorterDuff.Mode.SRC_IN);

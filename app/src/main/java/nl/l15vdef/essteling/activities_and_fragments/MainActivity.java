@@ -1,4 +1,4 @@
-package nl.l15vdef.essteling.activities;
+package nl.l15vdef.essteling.activities_and_fragments;
 
 import android.Manifest;
 import android.os.Bundle;
@@ -15,8 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import nl.l15vdef.essteling.R;
-import nl.l15vdef.essteling.activities.attractionChooser.AttractionChooserActivity;
-import nl.l15vdef.essteling.activities.helpMenu.HelpMenuActivity;
+import nl.l15vdef.essteling.activities_and_fragments.attractionChooser.AttractionChooserFragment;
+import nl.l15vdef.essteling.activities_and_fragments.helpMenu.HelpMenuActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,7 +41,11 @@ public class MainActivity extends AppCompatActivity
         ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE} , 2);
         ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.INTERNET} , 3);
         ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.ACCESS_NETWORK_STATE} ,4);
-        displaySelectedScreen(R.id.menu_home);
+        Fragment fragment = new HomepageFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_main, fragment);
+        ft.commit();
+
     }
 
     @Override
@@ -85,16 +89,16 @@ public class MainActivity extends AppCompatActivity
 
         switch(id){
             case R.id.menu_attracties:
-                fragment = new AttractionChooserActivity();
+                fragment = new AttractionChooserFragment();
                 break;
             case R.id.menu_help:
                 fragment = new HelpMenuActivity();
                 break;
             case R.id.menu_home:
-                fragment = new HomepageActivity();
+                fragment = new HomepageFragment();
                 break;
             case R.id.menu_over:
-                fragment = new AboutActivity();
+                fragment = new AboutFragment();
                 break;
         }
         if(fragment != null){

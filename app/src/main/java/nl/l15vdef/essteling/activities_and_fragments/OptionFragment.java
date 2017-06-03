@@ -1,4 +1,4 @@
-package nl.l15vdef.essteling.activities;
+package nl.l15vdef.essteling.activities_and_fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package nl.l15vdef.essteling.activities.helpMenu;
+package nl.l15vdef.essteling.activities_and_fragments.helpMenu;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;

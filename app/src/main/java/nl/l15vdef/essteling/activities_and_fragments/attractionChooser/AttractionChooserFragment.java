@@ -1,4 +1,4 @@
-package nl.l15vdef.essteling.activities.attractionChooser;
+package nl.l15vdef.essteling.activities_and_fragments.attractionChooser;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.l15vdef.essteling.R;
-import nl.l15vdef.essteling.activities.AttractionDetailFragment;
+import nl.l15vdef.essteling.activities_and_fragments.AttractionDetailFragment;
 import nl.l15vdef.essteling.data.Attraction;
 
-public class AttractionChooserActivity extends Fragment {
+public class AttractionChooserFragment extends Fragment {
 
     private ListView listOfAttractions;
     private ArrayAdapter adapterOfAttractionList;

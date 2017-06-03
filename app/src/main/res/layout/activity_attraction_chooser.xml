@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
-    tools:context="nl.l15vdef.essteling.activities.HomepageActivity">
+    tools:context="nl.l15vdef.essteling.activities_and_fragments.HomepageFragment">
 
     <ListView
         android:id="@+id/activity_about_list_of_attractions"

@@ -1,4 +1,4 @@
-package nl.l15vdef.essteling.activities.attractionChooser;
+package nl.l15vdef.essteling.activities_and_fragments.attractionChooser;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
