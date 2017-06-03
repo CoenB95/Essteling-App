@@ -27,6 +27,9 @@ import java.util.Map;
  */
 
 public class BluetoothInRangeDetector implements Runnable{
+
+    private String TAG = "BluetoothInRangeDetect";
+
     private Map<String,Boolean> inRanges;
     private BluetoothAdapter mBluetoothAdapter;
     private List<BluetoothDevice> bluetoothDevices; //current bluetooth devices in range
@@ -38,6 +41,8 @@ public class BluetoothInRangeDetector implements Runnable{
     private int updateTime;
     private Handler permissionHandler;
     private BroadcastReceiver mReceiver;
+
+
     /**
      *
      *
@@ -107,7 +112,7 @@ public class BluetoothInRangeDetector implements Runnable{
                     //if an name == null then don't add it
                     if(device.getName() != null) {
                         bluetoothDevices.add(device);
-                        Log.d("BluetoothRangeDetector", "found " + device.getName());
+                       // Log.d(TAG, "found " + device.getName());
                         for (String s : inRanges.keySet()) {
                             if(s.equals(device.getName())){
                                 listener.bluetoothDeviceFoundandWasCheckedFor(device.getName());
@@ -154,7 +159,7 @@ public class BluetoothInRangeDetector implements Runnable{
             bluetoothSearchLoop = new Runnable() {
                 @Override
                 public void run() {
-                    Log.d("BluetoothRangeDetector","checking for range thread running");
+                    Log.d(TAG,"Checking bluetooth device in range.");
                     for (String s : inRanges.keySet()) {
                         inRanges.put(s,false);
                     }

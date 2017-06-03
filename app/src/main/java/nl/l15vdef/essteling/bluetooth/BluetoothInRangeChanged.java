@@ -11,6 +11,13 @@ public /**
  * BluetoothInRageDetector when refreshes the check for bluetooth devices.
  */
 interface BluetoothInRangeChanged {
+    /**
+     * @param inRange an map with all the input strings and an boolean if they are in range
+     */
     void bluetoothChecked(Map<String, Boolean> inRange);
+
+    /**
+     * @param deviceName the name of the found device(this device name was in the input list)
+     */
     void bluetoothDeviceFoundandWasCheckedFor(String deviceName);
 }
