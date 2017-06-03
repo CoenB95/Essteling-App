@@ -12,4 +12,5 @@ public /**
  */
 interface BluetoothInRangeChanged {
     void bluetoothChecked(Map<String, Boolean> inRange);
+    void bluetoothDeviceFoundandWasCheckedFor(String deviceName);
 }

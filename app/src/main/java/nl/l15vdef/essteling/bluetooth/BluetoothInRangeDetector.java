@@ -108,6 +108,11 @@ public class BluetoothInRangeDetector implements Runnable{
                     if(device.getName() != null) {
                         bluetoothDevices.add(device);
                         Log.d("BluetoothRangeDetector", "found " + device.getName());
+                        for (String s : inRanges.keySet()) {
+                            if(s.equals(device.getName())){
+                                listener.bluetoothDeviceFoundandWasCheckedFor(device.getName());
+                            }
+                        }
                     }
                 }
             }
