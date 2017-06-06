@@ -136,9 +136,17 @@ public class BluetoothInRangeDetector implements Runnable{
      * This method stops the bluetooth search thread from running
      */
     public void stop(){
-        activity.unregisterReceiver(mReceiver);
-        running = false;
-        mBluetoothAdapter.cancelDiscovery();
+        Log.d("Bluetooth","bluetooth is stopped");
+        try {
+            activity.unregisterReceiver(mReceiver);
+            running = false;
+            mBluetoothAdapter.cancelDiscovery();
+        }catch (Exception e){
+            running = false;
+            mBluetoothAdapter.cancelDiscovery();
+            Log.e("bluetooth","errir");
+        }
+
     }
 
 
