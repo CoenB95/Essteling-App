@@ -149,6 +149,13 @@ public class BluetoothInRangeDetector implements Runnable{
 
     }
 
+    public void resume(){
+        Log.d("Bluetooth","resume");
+        running = true;
+        bluetoothSearchHandler.post(bluetoothSearchLoop);
+        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        activity.registerReceiver(mReceiver, filter);
+    }
 
 
 

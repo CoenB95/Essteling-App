@@ -128,5 +128,9 @@ public class HomepageFragment extends Fragment {
 		if (bird != null) bird.stop();
 	}
 
-
+	@Override
+	public void onResume() {
+		super.onResume();
+		bird.resume();
+	}
 }
