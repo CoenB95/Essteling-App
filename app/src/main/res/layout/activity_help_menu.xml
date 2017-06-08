@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="nl.l15vdef.essteling.activities.helpMenu.HelpMenuActivity">
+    tools:context="nl.l15vdef.essteling.activities_and_fragments.helpMenu.HelpMenuActivity">
 
     <ListView
         android:id="@+id/ActivityHelpMenu_listViewFAQ"
