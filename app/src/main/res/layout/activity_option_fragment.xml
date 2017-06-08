@@ -18,7 +18,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="8dp" />
 
     <Spinner
         android:id="@+id/language_select_spin"
@@ -29,7 +30,7 @@
         android:entries="@array/country_arrays"
         app:layout_constraintLeft_toRightOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/option_wifi_check"
-        tools:layout_editor_absoluteX="149dp" />
+        android:layout_marginStart="8dp" />
 
     <TextView
         android:id="@+id/textView4"
@@ -40,6 +41,28 @@
         android:text="@string/language"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/option_wifi_check" />
+        app:layout_constraintTop_toBottomOf="@+id/option_wifi_check"
+        android:layout_marginStart="8dp" />
+
+    <Spinner
+        android:id="@+id/dif_select_spinner"
+        android:layout_width="294dp"
+        android:layout_height="22dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintLeft_toLeftOf="@+id/language_select_spin"
+        app:layout_constraintTop_toBottomOf="@+id/language_select_spin"
+        tools:layout_editor_absoluteX="84dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="26dp"
+        android:text="@string/dif"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 </android.support.constraint.ConstraintLayout>

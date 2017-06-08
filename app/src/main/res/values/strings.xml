@@ -29,9 +29,17 @@
     <string name="settings">Settings</string>
     <string name="scores">Scores</string>
 
+    <string name="dif">difficult</string>
+
 
     <string-array name="country_arrays">
         <item>English</item>
         <item>Dutch</item>
+    </string-array>
+
+    <string-array name="moeilijkheid">
+        <item>Child</item>
+        <item>Teenager</item>
+        <item>Adult</item>
     </string-array>
 </resources>

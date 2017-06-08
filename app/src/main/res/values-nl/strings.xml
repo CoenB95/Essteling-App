@@ -23,10 +23,18 @@
         <item>Engels</item>
         <item>Nederlands</item>
     </string-array>
+
+    <string-array name="moeilijkheid">
+        <item>Kind</item>
+        <item>Tiener</item>
+        <item>Volwassenen</item>
+    </string-array>
+
     <string name="about">Over</string>
     <string name="attraction">Attracties</string>
     <string name="help">Hulp</string>
     <string name="home">Home</string>
     <string name="scores">Scoren</string>
     <string name="settings">Opties</string>
+    <string name="dif">moeilijkheid</string>
 </resources>

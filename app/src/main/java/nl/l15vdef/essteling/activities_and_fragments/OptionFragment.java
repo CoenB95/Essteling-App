@@ -27,6 +27,7 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
     private Switch checkWifiOnly;
     private Boolean mayAccesInternet;
     private Spinner languageSelection;
+    private Spinner difSpinner;
     private Configuration config ;
 
 
@@ -46,6 +47,16 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
         // Apply the adapter to the spinner
         languageSelection.setAdapter(adapter);
         languageSelection.setOnItemSelectedListener(this);
+
+        difSpinner = (Spinner) view.findViewById(R.id.dif_select_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getActivity(),
+                R.array.moeilijkheid, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        difSpinner.setAdapter(adapter2);
+        //difSpinner.setOnItemSelectedListener(this);
 
         checkWifiConnection();
         return view;
