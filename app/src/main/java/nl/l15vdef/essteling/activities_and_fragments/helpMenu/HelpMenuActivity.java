@@ -22,33 +22,17 @@ public class HelpMenuActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_help_menu, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-
-        View v = getView();
-
+        View v = inflater.inflate(R.layout.activity_help_menu, container, false);
 
         list = new ArrayList<>();
-        list.add(new FAQ("Is dit een test?","Dit is inderdaad een test. Dit antwoord staat ook nog" +
-                " vol met willekeurige tekst, om te testen hoe de adapter hierop reageert."));
-        list.add(new FAQ("Is dit een test om te kijken hoe de adapter omgaat met een langere vraag?",
-                "Dit is inderderdaad een test om te kijken hoe de adapter omgaat met een langere "+
-                "vragen en misschien zelfs ook teksten, ligt eraan hoeveel ik hier bij kan verzinnen, " +
-                " wat eigenlijk vrij weinig is."));
+        list.add(new FAQ(getContext().getResources().getString(R.string.faq_q_launchGame),
+                getContext().getResources().getString(R.string.faq_a_launchGame)));
 
-
+        adapter = new HelpMenuAdapter(v.getContext(), list);
 
         listView = (ListView) v.findViewById(R.id.ActivityHelpMenu_listViewFAQ);
-
-
-        adapter = new HelpMenuAdapter(v.getContext(),list);
         listView.setAdapter(adapter);
-
+        return v;
     }
 
 }
