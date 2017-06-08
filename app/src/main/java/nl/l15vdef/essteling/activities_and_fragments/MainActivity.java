@@ -76,17 +76,8 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        Fragment fragment = null;
-        switch(id){
-            case R.id.action_settings:
-                fragment = new OptionFragment();
-        }
-        if(fragment != null){
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_main, fragment);
-            ft.commit();
-        }
+        if (item.getItemId() == R.id.action_settings)
+            displaySelectedScreen(item.getItemId());
         return super.onOptionsItemSelected(item);
     }
 
@@ -94,6 +85,10 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().popBackStack(MAIN_BACKSTACK_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         switch(id){
+            case R.id.action_settings:
+                ft.replace(R.id.content_main, new OptionFragment());
+                ft.addToBackStack(MAIN_BACKSTACK_TAG);
+                break;
             case R.id.menu_attracties:
                 ft.replace(R.id.content_main, new AttractionChooserFragment());
                 ft.addToBackStack(MAIN_BACKSTACK_TAG);
