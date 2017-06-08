@@ -15,41 +15,24 @@ import java.util.List;
 
 import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.activities_and_fragments.AttractionDetailFragment;
+import nl.l15vdef.essteling.activities_and_fragments.MainActivity;
 import nl.l15vdef.essteling.data.Attraction;
 
 public class AttractionChooserFragment extends Fragment {
 
-    private ListView listOfAttractions;
-    private ArrayAdapter adapterOfAttractionList;
-    private List<Attraction> attractions;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_attraction_chooser, container, false);
-    }
+        View v = inflater.inflate(R.layout.activity_attraction_chooser, container, false);
 
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        View v = getView();
-
-
-        //inital lize attracions
-        attractions = new ArrayList<>();
-
+        //Initialize attractions
+        List<Attraction> attractions = new ArrayList<>();
         attractions.addAll(Attraction.getAttractions());
 
+        ArrayAdapter adapterOfAttractionList = new AttractionChooserAdapter(getContext(), attractions);
 
-
-        listOfAttractions = (ListView) v.findViewById(R.id.activity_about_list_of_attractions);
-
-
-        adapterOfAttractionList = new AttractionChooserAdapter(v.getContext(),attractions);
+        ListView listOfAttractions = (ListView) v.findViewById(R.id.activity_about_list_of_attractions);
         listOfAttractions.setAdapter(adapterOfAttractionList);
-
         listOfAttractions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -58,11 +41,11 @@ public class AttractionChooserFragment extends Fragment {
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_main, adf)
-                        .addToBackStack( "tag" )
+                        .addToBackStack(MainActivity.MAIN_BACKSTACK_TAG)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit();
             }
         });
-
+        return v;
     }
 }

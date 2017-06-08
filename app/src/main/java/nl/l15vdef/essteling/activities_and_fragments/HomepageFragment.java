@@ -1,7 +1,6 @@
 package nl.l15vdef.essteling.activities_and_fragments;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -34,14 +33,14 @@ import nl.l15vdef.essteling.data.Attraction;
 public class HomepageFragment extends Fragment {
 
     private ProgressBar progressBar;
-    private RecyclerView scoreRecyclerView;
-    private ScoreAdapter scoreAdapter;
-    private BluetoothInRangeDetector bird;
+	private RecyclerView scoreRecyclerView;
+	private ScoreAdapter scoreAdapter;
+	private BluetoothInRangeDetector bird;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_homepage, container, false);
+	@Nullable
+	@Override
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.activity_homepage, container, false);
 
         scoreAdapter = new ScoreAdapter();
         scoreAdapter.setAll(Arrays.asList(
@@ -52,18 +51,19 @@ public class HomepageFragment extends Fragment {
                 new Score("Jaap1995", 2000)
         ));
 
-        List<String> strings = new ArrayList<>();
-        final List<String> attractions = new ArrayList<>();
-        final ArrayAdapter<String> attractionslistAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, attractions);
-        for (Attraction attraction : Attraction.getAttractions()) {
-            strings.add(attraction.getName());
-            strings.add("NLQUIST02");
-        }
+		List<String> strings = new ArrayList<>();
+		final List<String> attractions = new ArrayList<>();
+		final ArrayAdapter<String> attractionslistAdapter = new ArrayAdapter<>(getActivity(),
+				R.layout.activity_nearby_attractions_row, R.id.nearbyNameField, attractions);
+		for (Attraction attraction : Attraction.getAttractions()) {
+			strings.add(attraction.getName());
+			strings.add("NLQUIST02");
+		}
 
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+	    progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
-        try {
-            bird = new BluetoothInRangeDetector(new BluetoothInRangeChanged() {
+		try {
+			bird = new BluetoothInRangeDetector(new BluetoothInRangeChanged() {
                 @Override
                 public void bluetoothChecked(Map<String, Boolean> inRange) {
                     attractions.clear();

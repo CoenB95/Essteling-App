@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,6 +21,8 @@ import nl.l15vdef.essteling.activities_and_fragments.helpMenu.HelpMenuActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String MAIN_BACKSTACK_TAG = "mainstack";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +44,14 @@ public class MainActivity extends AppCompatActivity
         ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE} , 2);
         ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.INTERNET} , 3);
         ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.ACCESS_NETWORK_STATE} ,4);
-        Fragment fragment = new HomepageFragment();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_main, fragment);
-        ft.commit();
 
+        if (savedInstanceState == null) {
+            Fragment fragment = new HomepageFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_main, fragment);
+            //ft.addToBackStack()
+            ft.commit();
+        }
     }
 
     @Override
@@ -70,43 +76,37 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        Fragment fragment = null;
-        switch(id){
-            case R.id.action_settings:
-                fragment = new OptionFragment();
-        }
-        if(fragment != null){
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_main, fragment);
-            ft.commit();
-        }
+        if (item.getItemId() == R.id.action_settings)
+            displaySelectedScreen(item.getItemId());
         return super.onOptionsItemSelected(item);
     }
 
     private void displaySelectedScreen(int id){
-        Fragment fragment = null;
-
+        getSupportFragmentManager().popBackStack(MAIN_BACKSTACK_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         switch(id){
+            case R.id.action_settings:
+                ft.replace(R.id.content_main, new OptionFragment());
+                ft.addToBackStack(MAIN_BACKSTACK_TAG);
+                break;
             case R.id.menu_attracties:
-                fragment = new AttractionChooserFragment();
+                ft.replace(R.id.content_main, new AttractionChooserFragment());
+                ft.addToBackStack(MAIN_BACKSTACK_TAG);
                 break;
             case R.id.menu_help:
-                fragment = new HelpMenuActivity();
+                ft.replace(R.id.content_main, new HelpMenuActivity());
+                ft.addToBackStack(MAIN_BACKSTACK_TAG);
                 break;
             case R.id.menu_home:
-                fragment = new HomepageFragment();
+                //Don't add home to backstack, we already went back.
                 break;
             case R.id.menu_over:
-                fragment = new AboutFragment();
+                ft.replace(R.id.content_main, new AboutFragment());
+                ft.addToBackStack(MAIN_BACKSTACK_TAG);
                 break;
         }
-        if(fragment != null){
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_main, fragment);
-            ft.addToBackStack("tag");
-            ft.commit();
-        }
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

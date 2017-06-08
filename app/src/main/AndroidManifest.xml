@@ -26,8 +26,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities_and_fragments.GameScreenActivity"
-            android:screenOrientation="landscape"/>
+            android:name=".activities_and_fragments.game.GameScreenActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".NearbyAttractionsRow">
+        </activity>
     </application>
 
 </manifest>
