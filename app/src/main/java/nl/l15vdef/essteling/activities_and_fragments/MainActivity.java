@@ -41,11 +41,13 @@ public class MainActivity extends AppCompatActivity
         ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE} , 2);
         ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.INTERNET} , 3);
         ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.ACCESS_NETWORK_STATE} ,4);
-        Fragment fragment = new HomepageFragment();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_main, fragment);
-        ft.commit();
 
+        if (savedInstanceState == null) {
+            Fragment fragment = new HomepageFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_main, fragment);
+            ft.commit();
+        }
     }
 
     @Override
