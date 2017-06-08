@@ -54,6 +54,7 @@ public class AttractionChooserFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AttractionDetailFragment adf = new AttractionDetailFragment();
+                adf.setImageRes(attractions.get(position).getImage());
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_main, adf)

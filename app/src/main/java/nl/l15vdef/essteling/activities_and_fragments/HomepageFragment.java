@@ -34,104 +34,102 @@ import nl.l15vdef.essteling.data.Attraction;
 public class HomepageFragment extends Fragment {
 
     private ProgressBar progressBar;
-	private RecyclerView scoreRecyclerView;
-	private ScoreAdapter scoreAdapter;
-	private BluetoothInRangeDetector bird;
+    private RecyclerView scoreRecyclerView;
+    private ScoreAdapter scoreAdapter;
+    private BluetoothInRangeDetector bird;
 
-	@Nullable
-	@Override
-	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.activity_homepage, container, false);
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_homepage, container, false);
 
-		Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-		toolbar.setTitle("Home");
-	    scoreAdapter = new ScoreAdapter();
-	    scoreAdapter.setAll(Arrays.asList(
-			    new Score("LiPa450", 1676),
-			    new Score("Co-en-co-xxx", 1942),
-			    new Score("PietjePuk", 1438),
-			    new Score("xxx_360hans_xxx", 1700),
-	    		new Score("Jaap1995", 2000)
-	    ));
+        scoreAdapter = new ScoreAdapter();
+        scoreAdapter.setAll(Arrays.asList(
+                new Score("LiPa450", 1676),
+                new Score("Co-en-co-xxx", 1942),
+                new Score("PietjePuk", 1438),
+                new Score("xxx_360hans_xxx", 1700),
+                new Score("Jaap1995", 2000)
+        ));
 
-		List<String> strings = new ArrayList<>();
-		final List<String> attractions = new ArrayList<>();
-		final ArrayAdapter<String> attractionslistAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1,attractions);
-		for (Attraction attraction : Attraction.getAttractions()) {
-			strings.add(attraction.getName());
-			strings.add("NLQUIST02");
-		}
+        List<String> strings = new ArrayList<>();
+        final List<String> attractions = new ArrayList<>();
+        final ArrayAdapter<String> attractionslistAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, attractions);
+        for (Attraction attraction : Attraction.getAttractions()) {
+            strings.add(attraction.getName());
+            strings.add("NLQUIST02");
+        }
 
-	    progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
-		try {
-			bird = new BluetoothInRangeDetector(new BluetoothInRangeChanged() {
+        try {
+            bird = new BluetoothInRangeDetector(new BluetoothInRangeChanged() {
                 @Override
                 public void bluetoothChecked(Map<String, Boolean> inRange) {
-					attractions.clear();
-					for (String s : inRange.keySet()) {
-						if(inRange.get(s)) {
-							attractions.add(s);
-							Log.d(getTag() + "Bluetooth", s + " was found");
-						}
-					}
-					if(attractions.size() <= 0){
-						progressBar.setVisibility(View.VISIBLE);
-					}else progressBar.setVisibility(View.INVISIBLE);
-					attractionslistAdapter.notifyDataSetChanged();
+                    attractions.clear();
+                    for (String s : inRange.keySet()) {
+                        if (inRange.get(s)) {
+                            attractions.add(s);
+                            Log.d(getTag() + "Bluetooth", s + " was found");
+                        }
+                    }
+                    if (attractions.size() <= 0) {
+                        progressBar.setVisibility(View.VISIBLE);
+                    } else progressBar.setVisibility(View.INVISIBLE);
+                    attractionslistAdapter.notifyDataSetChanged();
                 }
 
-				@Override
-				public void bluetoothDeviceFoundandWasCheckedFor(String deviceName) {
-					if(!attractions.contains(deviceName)){
-						attractions.add(deviceName);
-						Log.d(getTag() + "Bluetooth", deviceName + " was found");
-						if(attractions.size() <= 0){
-							progressBar.setVisibility(View.VISIBLE);
-						}else progressBar.setVisibility(View.INVISIBLE);
-						attractionslistAdapter.notifyDataSetChanged();
-					}
-				}
-			}, strings, getActivity(), 10000);
-		} catch (BluetoothNotAvailableException | LocationPermissionNotExceptedException e) {
-			e.printStackTrace();
-		}
+                @Override
+                public void bluetoothDeviceFoundandWasCheckedFor(String deviceName) {
+                    if (!attractions.contains(deviceName)) {
+                        attractions.add(deviceName);
+                        Log.d(getTag() + "Bluetooth", deviceName + " was found");
+                        if (attractions.size() <= 0) {
+                            progressBar.setVisibility(View.VISIBLE);
+                        } else progressBar.setVisibility(View.INVISIBLE);
+                        attractionslistAdapter.notifyDataSetChanged();
+                    }
+                }
+            }, strings, getActivity(), 10000);
+        } catch (BluetoothNotAvailableException | LocationPermissionNotExceptedException e) {
+            e.printStackTrace();
+        }
 
-		ListView attractionsList  = (ListView) view.findViewById(R.id.fragement_homescreen_attractionslist_id);
-		attractionsList.setAdapter(attractionslistAdapter);
+        ListView attractionsList = (ListView) view.findViewById(R.id.fragement_homescreen_attractionslist_id);
+        attractionsList.setAdapter(attractionslistAdapter);
 
-		attractionsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Intent i = new Intent(getContext(),GameScreenActivity.class);
-				startActivity(i);
-			}
-		});
+        attractionsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getContext(), GameScreenActivity.class);
+                startActivity(i);
+            }
+        });
 
-		progressBar.getIndeterminateDrawable().setColorFilter(
-				getResources().getColor(R.color.colorAccent2), android.graphics.PorterDuff.Mode.SRC_IN);
-		progressBar.setVisibility(View.VISIBLE);
+        progressBar.getIndeterminateDrawable().setColorFilter(
+                getResources().getColor(R.color.colorAccent2), android.graphics.PorterDuff.Mode.SRC_IN);
+        progressBar.setVisibility(View.VISIBLE);
 
-		scoreRecyclerView = (RecyclerView) view.findViewById(R.id.scoreboardRecyclerView);
-	    scoreRecyclerView.setLayoutManager(new ScoreLayoutManager(getContext())
-			    .enableScrolling(false));
-	    scoreRecyclerView.setAdapter(scoreAdapter);
+        scoreRecyclerView = (RecyclerView) view.findViewById(R.id.scoreboardRecyclerView);
+        scoreRecyclerView.setLayoutManager(new ScoreLayoutManager(getContext())
+                .enableScrolling(false));
+        scoreRecyclerView.setAdapter(scoreAdapter);
 
-		return view;
+        return view;
     }
 
 
-	@Override
-	public void onStop() {
-		super.onStop();
-		Log.d("stop","stop");
-		if (bird != null) bird.stop();
-	}
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("stop", "stop");
+        if (bird != null) bird.stop();
+    }
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		if(bird != null)
-		bird.resume();
-	}
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (bird != null)
+            bird.resume();
+    }
 }
