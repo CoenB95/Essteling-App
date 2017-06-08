@@ -24,7 +24,6 @@ import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.Score;
 import nl.l15vdef.essteling.ScoreAdapter;
 import nl.l15vdef.essteling.ScoreLayoutManager;
-import nl.l15vdef.essteling.activities_and_fragments.game.GameScreenActivity;
 import nl.l15vdef.essteling.bluetooth.BluetoothInRangeChanged;
 import nl.l15vdef.essteling.bluetooth.BluetoothInRangeDetector;
 import nl.l15vdef.essteling.bluetooth.BluetoothNotAvailableException;
