@@ -1,7 +1,6 @@
 package nl.l15vdef.essteling.activities_and_fragments;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,6 +29,7 @@ import nl.l15vdef.essteling.bluetooth.BluetoothInRangeDetector;
 import nl.l15vdef.essteling.bluetooth.BluetoothNotAvailableException;
 import nl.l15vdef.essteling.bluetooth.LocationPermissionNotExceptedException;
 import nl.l15vdef.essteling.data.Attraction;
+import nl.l15vdef.essteling.game.GameScreenActivity;
 
 public class HomepageFragment extends Fragment {
 
