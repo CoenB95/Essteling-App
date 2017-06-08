@@ -16,10 +16,11 @@ import nl.l15vdef.essteling.R;
  * Created by Maarten on 08/06/2017.
  */
 
-public class Background implements GameObject {
+public class Background extends GameObject {
     private Bitmap background;
     private Bitmap scoreBackground;
     public Background(View v) {
+        super(v);
 
         WindowManager wm = (WindowManager) v.getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();

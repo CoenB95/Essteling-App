@@ -13,19 +13,18 @@ import android.view.WindowManager;
  * Created by Maarten on 08/06/2017.
  */
 
-public class StartGameButton implements GameObject {
+public class StartGameButton extends GameObject {
 
     private Point p;
     private Point widthAndHeight;
     private Rect rect;
-    private View v;
     private int screenWidht;
     private int screenHeight;
 
     public StartGameButton(View v, Point p, int with, int height) {
+        super(v);
         this.p = p;
         this.widthAndHeight = new Point(with,height);
-        this.v = v;
         rect = new Rect(p.x,p.y,p.x + with,p.y + height);
         WindowManager wm = (WindowManager) v.getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
