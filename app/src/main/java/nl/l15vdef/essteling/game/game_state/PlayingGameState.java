@@ -49,6 +49,7 @@ public class PlayingGameState extends State {
     @Override
     public void update(long updateTime) {
         if(System.currentTimeMillis() - timer > 5000){
+            timer = System.currentTimeMillis();
             pickUps.add(new PickUp(v,new Point( (int) (Math.random() * row), (int) (Math.random() * col)),this));
         }
     }
