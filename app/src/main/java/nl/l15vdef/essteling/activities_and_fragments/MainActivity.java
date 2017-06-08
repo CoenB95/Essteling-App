@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,6 +21,8 @@ import nl.l15vdef.essteling.activities_and_fragments.helpMenu.HelpMenuActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String MAIN_BACKSTACK_TAG = "mainstack";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity
             Fragment fragment = new HomepageFragment();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_main, fragment);
+            //ft.addToBackStack()
             ft.commit();
         }
     }
@@ -87,28 +91,26 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void displaySelectedScreen(int id){
-        Fragment fragment = null;
-
+        getSupportFragmentManager().popBackStack("tag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         switch(id){
             case R.id.menu_attracties:
-                fragment = new AttractionChooserFragment();
+                ft.replace(R.id.content_main, new AttractionChooserFragment());
+                ft.addToBackStack(MAIN_BACKSTACK_TAG);
                 break;
             case R.id.menu_help:
-                fragment = new HelpMenuActivity();
+                ft.replace(R.id.content_main, new HelpMenuActivity());
+                ft.addToBackStack(MAIN_BACKSTACK_TAG);
                 break;
             case R.id.menu_home:
-                fragment = new HomepageFragment();
+                //Don't add home to backstack, we already went back.
                 break;
             case R.id.menu_over:
-                fragment = new AboutFragment();
+                ft.replace(R.id.content_main, new AboutFragment());
+                ft.addToBackStack(MAIN_BACKSTACK_TAG);
                 break;
         }
-        if(fragment != null){
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_main, fragment);
-            ft.addToBackStack("tag");
-            ft.commit();
-        }
+        ft.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
