@@ -27,6 +27,7 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
     private Switch checkWifiOnly;
     private Boolean mayAccesInternet;
     private Spinner languageSelection;
+    private Spinner difSpinner;
     private Configuration config ;
 
 
@@ -34,6 +35,7 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_option_fragment, container, false);
+        getActivity().setTitle(getResources().getString(R.string.settings));
 
         checkWifiOnly = (Switch) view.findViewById(R.id.option_wifi_check);
         languageSelection = (Spinner) view.findViewById(R.id.language_select_spin);
@@ -46,6 +48,15 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
         languageSelection.setAdapter(adapter);
         languageSelection.setOnItemSelectedListener(this);
 
+        difSpinner = (Spinner) view.findViewById(R.id.dif_select_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getActivity(),
+                R.array.moeilijkheid, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        difSpinner.setAdapter(adapter2);
+        //difSpinner.setOnItemSelectedListener(this);
 
         checkWifiConnection();
         return view;
@@ -122,6 +133,8 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
+
+
 
 
 

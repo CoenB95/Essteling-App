@@ -23,6 +23,7 @@ public class AttractionChooserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().setTitle(getResources().getString(R.string.attraction));
         View v = inflater.inflate(R.layout.activity_attraction_chooser, container, false);
 
         //Initialize attractions

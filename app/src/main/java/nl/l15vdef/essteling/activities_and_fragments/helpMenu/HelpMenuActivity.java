@@ -22,6 +22,7 @@ public class HelpMenuActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+	    getActivity().setTitle(getResources().getString(R.string.help));
         View v = inflater.inflate(R.layout.activity_help_menu, container, false);
 
         list = new ArrayList<>();

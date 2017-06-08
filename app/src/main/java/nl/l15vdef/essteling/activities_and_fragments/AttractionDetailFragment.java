@@ -22,6 +22,7 @@ public class AttractionDetailFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.activity_attraction_detail, container, false);
+		getActivity().setTitle(getResources().getString(R.string.scores));
 
 		ScoreAdapter scoreDayAdapter = createDummyAdapter();
 		ScoreAdapter scoreWeekAdapter = createDummyAdapter();
