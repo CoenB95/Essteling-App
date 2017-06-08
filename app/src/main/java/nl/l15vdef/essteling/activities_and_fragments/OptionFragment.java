@@ -34,6 +34,7 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_option_fragment, container, false);
+        getActivity().setTitle(getResources().getString(R.string.settings));
 
         checkWifiOnly = (Switch) view.findViewById(R.id.option_wifi_check);
         languageSelection = (Spinner) view.findViewById(R.id.language_select_spin);

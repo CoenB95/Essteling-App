@@ -1,7 +1,7 @@
 package nl.l15vdef.essteling.activities_and_fragments.helpMenu;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +19,12 @@ public class HelpMenuActivity extends Fragment {
     private ArrayList<FAQ> list;
     private ArrayAdapter adapter;
 
+    private String title;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().setTitle(getResources().getString(R.string.help));
         return inflater.inflate(R.layout.activity_help_menu, container, false);
     }
 

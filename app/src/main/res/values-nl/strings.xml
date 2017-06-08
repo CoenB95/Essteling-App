@@ -8,7 +8,7 @@
     <string name="activity_about_maintext">Deze app is gemaakt voor attractiepar \"De Essteling\". Het doel van deze applicatie is het vermaken van mensen in de wachtrijen voor de attracties. Er is ook een mogelijkheid om informatie te geven over de wachtrijden e.d.</string>
     <string name="navigation_drawer_close">Sluit navigatie</string>
     <string name="navigation_drawer_open">Open navigatie</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Essteling Games</string>
     <string name="action_settings">Instellingen</string>
     <string name="detail_best_of_day">Top Dag</string>
     <string name="detail_best_of_week">Top Week</string>
@@ -23,4 +23,10 @@
         <item>Engels</item>
         <item>Nederlands</item>
     </string-array>
+    <string name="about">Over</string>
+    <string name="attraction">Attracties</string>
+    <string name="help">Hulp</string>
+    <string name="home">Home</string>
+    <string name="scores">Scoren</string>
+    <string name="settings">Opties</string>
 </resources>
