@@ -18,6 +18,7 @@
     <string name="navigation_menu">Navigatiemenu</string>
     <string name="wifi_switch">Gebruik alleen WIFI</string>
     <string name="language">Taal</string>
+    <string name="play">Spelen</string>
 
     <string-array name="country_arrays">
         <item>Engels</item>

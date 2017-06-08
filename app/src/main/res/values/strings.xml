@@ -21,6 +21,7 @@
     <string name="navigation_menu">Navigationmenu</string>
     <string name="wifi_switch">Use WIFI only</string>
     <string name="language">Language</string>
+    <string name="play">Play</string>
 
 
     <string-array name="country_arrays">
