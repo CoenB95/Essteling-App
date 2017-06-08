@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.l15vdef.essteling.game.game_state.PlayingGameState;
 import nl.l15vdef.essteling.game.game_state.StartingGameState;
 import nl.l15vdef.essteling.game.game_state.State;
 
@@ -34,6 +35,7 @@ public class GameStateManager {
         gameStates = new ArrayList<>();
 
         gameStates.add(new StartingGameState(v,this));
+        gameStates.add(new PlayingGameState(v,this));
 
         currentState = 0;
     }

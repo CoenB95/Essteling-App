@@ -100,10 +100,13 @@ public class GameView extends SurfaceView implements Runnable{
 
             Canvas canvas = surfaceHolder.lockCanvas();
 
+            int color = paint.getColor();
+
             gameStateManager.draw(canvas,paint);
 
             //draw fps  \\debugging only
             paint.setTextSize(20);
+            paint.setColor(getResources().getColor(android.R.color.white));
             canvas.drawText("" + fps,20,20,paint);
 
             surfaceHolder.unlockCanvasAndPost(canvas);
