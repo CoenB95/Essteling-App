@@ -46,7 +46,6 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
         languageSelection.setAdapter(adapter);
         languageSelection.setOnItemSelectedListener(this);
 
-
         checkWifiConnection();
         return view;
     }
@@ -122,6 +121,8 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
+
+
 
 
 
