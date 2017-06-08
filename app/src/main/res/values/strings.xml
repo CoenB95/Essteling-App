@@ -21,6 +21,14 @@
     <string name="navigation_menu">Navigationmenu</string>
     <string name="wifi_switch">Use WIFI only</string>
     <string name="language">Language</string>
+    <string name="play">Play</string>
+
+    <string name="faq_q_launchGame">How can I launch a game?</string>
+    <string name="faq_a_launchGame">
+        You can launch games from the home-menu. Once your device is connected to a specific
+        attraction, it will appear under "nearby attractions". IF you tap the name of the attraction
+        or the big purple "play" button next to it, the game will launch.
+    </string>
 
     <string name="home">Home</string>
     <string name="attraction">Attractions</string>

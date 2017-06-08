@@ -18,6 +18,14 @@
     <string name="navigation_menu">Navigatiemenu</string>
     <string name="wifi_switch">Gebruik alleen WIFI</string>
     <string name="language">Taal</string>
+    <string name="play">Spelen</string>
+
+    <string name="faq_q_launchGame">Hoe kan ik een spel opstarten?</string>
+    <string name="faq_a_launchGame">
+        U kunt spellen opstarten vanaf het home-menu. Wanneer attracties gevonden worden,
+        verschijnen ze onder "nabije attracties". Als u op de naam van de attractie of op de
+        paarse "spelen" knop drukt, start het spel op.
+    </string>
 
     <string-array name="country_arrays">
         <item>Engels</item>

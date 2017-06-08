@@ -24,6 +24,7 @@ import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.Score;
 import nl.l15vdef.essteling.ScoreAdapter;
 import nl.l15vdef.essteling.ScoreLayoutManager;
+import nl.l15vdef.essteling.activities_and_fragments.game.GameScreenActivity;
 import nl.l15vdef.essteling.bluetooth.BluetoothInRangeChanged;
 import nl.l15vdef.essteling.bluetooth.BluetoothInRangeDetector;
 import nl.l15vdef.essteling.bluetooth.BluetoothNotAvailableException;
@@ -56,7 +57,8 @@ public class HomepageFragment extends Fragment {
 
 		List<String> strings = new ArrayList<>();
 		final List<String> attractions = new ArrayList<>();
-		final ArrayAdapter<String> attractionslistAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1,attractions);
+		final ArrayAdapter<String> attractionslistAdapter = new ArrayAdapter<>(getActivity(),
+				R.layout.activity_nearby_attractions_row, R.id.nearbyNameField, attractions);
 		for (Attraction attraction : Attraction.getAttractions()) {
 			strings.add(attraction.getName());
 			strings.add("NLQUIST02");
@@ -128,5 +130,10 @@ public class HomepageFragment extends Fragment {
 		if (bird != null) bird.stop();
 	}
 
-
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(bird != null)
+		bird.resume();
+	}
 }

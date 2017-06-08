@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities_and_fragments.MainActivity"
-            android:label="@string/title_activity_main"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,8 +26,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities_and_fragments.GameScreenActivity"
-            android:screenOrientation="landscape"/>
+            android:name=".activities_and_fragments.game.GameScreenActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".NearbyAttractionsRow">
+        </activity>
     </application>
 
 </manifest>
