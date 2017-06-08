@@ -28,13 +28,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="@color/colorPrimary"
-        android:text="@string/dummy"
+        android:text="@string/detail_best_overall"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragement_homescreen_attractionslist_id"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/fragement_homescreen_attractionslist_id" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
