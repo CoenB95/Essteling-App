@@ -131,6 +131,7 @@ public class HomepageFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
+		if(bird != null)
 		bird.resume();
 	}
 }
