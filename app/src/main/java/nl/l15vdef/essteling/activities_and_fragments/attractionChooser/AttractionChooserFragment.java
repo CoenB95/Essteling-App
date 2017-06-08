@@ -20,13 +20,17 @@ import nl.l15vdef.essteling.data.Attraction;
 
 public class AttractionChooserFragment extends Fragment {
 
+    private ListView listOfAttractions;
+    private ArrayAdapter adapterOfAttractionList;
+    private List<Attraction> attractions;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_attraction_chooser, container, false);
 
         //Initialize attractions
-        List<Attraction> attractions = new ArrayList<>();
+        attractions = new ArrayList<>();
         attractions.addAll(Attraction.getAttractions());
 
         ArrayAdapter adapterOfAttractionList = new AttractionChooserAdapter(getContext(), attractions);
