@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void displaySelectedScreen(int id){
-        getSupportFragmentManager().popBackStack("tag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getSupportFragmentManager().popBackStack(MAIN_BACKSTACK_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         switch(id){
             case R.id.menu_attracties:
@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity
                 ft.addToBackStack(MAIN_BACKSTACK_TAG);
                 break;
         }
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
