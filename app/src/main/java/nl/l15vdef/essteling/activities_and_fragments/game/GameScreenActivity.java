@@ -1,4 +1,4 @@
-package nl.l15vdef.essteling.activities_and_fragments;
+package nl.l15vdef.essteling.activities_and_fragments.game;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
