@@ -18,17 +18,15 @@ import nl.l15vdef.essteling.game.game_objects.StartGameButton;
  * Created by Maarten on 08/06/2017.
  */
 
-public class StartingGameState implements State {
+public class StartingGameState extends State {
     private Background b;
     private StartGameButton gameButton;
-    private GameStateManager gm;
 
     public StartingGameState(View v, GameStateManager gm) {
-
+        super(v,gm);
         //init background
         b = new Background(v);
         gameButton = new StartGameButton(v,new Point(gm.getScreenDimensions().x/2 - 250,gm.getScreenDimensions().y/2 - 100),500,200);
-        this.gm = gm;
     }
 
     @Override
