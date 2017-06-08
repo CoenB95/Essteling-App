@@ -1,9 +1,13 @@
 package nl.l15vdef.essteling.game;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +21,8 @@ import nl.l15vdef.essteling.game.game_state.State;
 
 public class GameStateManager {
 
+    private View v;
+
     public final static int STARTING_STATE = 0;
     public final static int PLAYING_STATE  = 1;
 
@@ -24,6 +30,7 @@ public class GameStateManager {
 
     private List<State> gameStates;
     public GameStateManager(View v) {
+        this.v = v;
         gameStates = new ArrayList<>();
 
         gameStates.add(new StartingGameState(v,this));
@@ -46,4 +53,13 @@ public class GameStateManager {
     public void setState(int state) {
         currentState = state;
     }
+
+    public Point getScreenDimensions(){
+        WindowManager wm = (WindowManager) v.getContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size;
+    }
+
 }

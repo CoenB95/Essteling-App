@@ -24,15 +24,10 @@ public class StartingGameState implements State {
     private GameStateManager gm;
 
     public StartingGameState(View v, GameStateManager gm) {
-        WindowManager wm = (WindowManager) v.getContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
+
         //init background
         b = new Background(v);
-        gameButton = new StartGameButton(v,new Point(width/2 - 250,height/2 - 100),500,200);
+        gameButton = new StartGameButton(v,new Point(gm.getScreenDimensions().x/2 - 250,gm.getScreenDimensions().y/2 - 100),500,200);
         this.gm = gm;
     }
 
