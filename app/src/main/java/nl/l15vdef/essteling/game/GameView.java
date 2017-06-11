@@ -55,7 +55,6 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
 
 
         surfaceHolder = getHolder();
-        surfaceHolder.setFixedSize(1920,1080);
         surfaceHolder.addCallback(this);
     }
 
