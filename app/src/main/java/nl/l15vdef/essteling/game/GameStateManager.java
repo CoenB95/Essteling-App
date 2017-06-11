@@ -48,12 +48,13 @@ public class GameStateManager {
         gameStates.get(currentState).draw(canvas,p);
     }
 
-    public void onTouchEvent(MotionEvent event) {
-        gameStates.get(currentState).onTouchEvent(event);
+    public boolean onTouchEvent(MotionEvent event) {
+        return gameStates.get(currentState).onTouchEvent(event);
     }
 
     public void setState(int state) {
         currentState = state;
+        gameStates.get(currentState).init();
     }
 
     public Point getScreenDimensions(){

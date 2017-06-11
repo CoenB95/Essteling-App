@@ -21,7 +21,8 @@ public abstract class State {
         this.gm = gm;
     }
 
+    public abstract void init();
     public abstract void update(long updateTime);
     public abstract void draw(Canvas canvas, Paint p);
-    public abstract void onTouchEvent(MotionEvent event);
+    public abstract boolean onTouchEvent(MotionEvent event);
 }

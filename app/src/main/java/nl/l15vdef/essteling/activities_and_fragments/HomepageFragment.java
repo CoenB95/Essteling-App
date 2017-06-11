@@ -75,7 +75,12 @@ public class HomepageFragment extends Fragment {
                         }
                     }
                     if (attractions.size() <= 0) {
-                        progressBar.setVisibility(View.VISIBLE);
+                        //progressBar.setVisibility(View.VISIBLE);
+
+                        // TODO: 10/06/2017 debug
+                        attractions.add("Debug");
+                        attractionslistAdapter.notifyDataSetChanged();
+
                     } else progressBar.setVisibility(View.INVISIBLE);
                     attractionslistAdapter.notifyDataSetChanged();
                 }
@@ -132,5 +137,9 @@ public class HomepageFragment extends Fragment {
         super.onResume();
         if (bird != null)
             bird.resume();
+    }
+
+    public BluetoothInRangeDetector getBird() {
+        return bird;
     }
 }

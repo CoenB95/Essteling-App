@@ -21,17 +21,25 @@ import nl.l15vdef.essteling.game.game_objects.StartGameButton;
 public class StartingGameState extends State {
     private Background b;
     private StartGameButton gameButton;
+    private boolean starting;
 
     public StartingGameState(View v, GameStateManager gm) {
         super(v,gm);
+        init();
+    }
+
+    public void init(){
         //init background
         b = new Background(v);
         gameButton = new StartGameButton(v,new Point(gm.getScreenDimensions().x/2 - 250,gm.getScreenDimensions().y/2 - 100),500,200);
+        starting = false;
     }
 
     @Override
     public void update(long updateTime) {
-
+        if(starting){
+            gm.setState(GameStateManager.PLAYING_STATE);
+        }
     }
 
     @Override
@@ -42,14 +50,15 @@ public class StartingGameState extends State {
     }
 
     @Override
-    public void onTouchEvent(MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event) {
         int x = (int) event.getX();
         int y = (int) event.getY();
         int left = gameButton.getP().x;
         int top =gameButton.getP().y;
 
         if(new Rect(left,top,left + gameButton.getWidthAndHeight().x,top + gameButton.getWidthAndHeight().y).contains(x,y)){
-            gm.setState(GameStateManager.PLAYING_STATE);
+            starting = true;
         }
+        return false;
     }
 }
