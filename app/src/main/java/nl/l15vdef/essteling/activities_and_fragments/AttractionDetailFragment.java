@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +16,21 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Handler;
 
 import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.Score;
 import nl.l15vdef.essteling.ScoreAdapter;
 import nl.l15vdef.essteling.ScoreLayoutManager;
+import nl.l15vdef.essteling.data.ScoreReceiver;
 
 public class AttractionDetailFragment extends Fragment {
     private ImageView imageView;
-    private
+    private ScoreReceiver SR;
+    private ArrayList<Score> scoreList = new ArrayList<>();
     @DrawableRes
     int imageRes = -1;
 
@@ -48,10 +54,32 @@ public class AttractionDetailFragment extends Fragment {
         tabLayout.addTab(fourthTab);
 
 
-        ScoreAdapter scoreDayAdapter = createDummyAdapter();
+       final ScoreAdapter scoreDayAdapter = new ScoreAdapter();
+            SR = new ScoreReceiver("Araconda");
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ArrayList<String> tempScoreList = null;
+                    try {
+                        tempScoreList = SR.geefHuidigeDatumScores();
+                    } catch (SQLException | ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    for (String s : tempScoreList) {
+                        String[] splits = s.split("~");
+                        Score tempScore = new Score(splits[1],Integer.valueOf(splits[2]));
+                        scoreList.add(tempScore);
+                        System.out.println(tempScore);
+                    }
+                }
+            });
+            t.start();
+
+
+
         ScoreAdapter scoreWeekAdapter = createDummyAdapter();
         ScoreAdapter scoreYearAdapter = createDummyAdapter();
-        ScoreAdapter scoreAllAdapter = createDummyAdapter();
+        final ScoreAdapter scoreAllAdapter = createDummyAdapter();
 
         final RecyclerView scoreDayRecyclerView = createRecyclerView(R.id.scoreboardDayRecyclerView,
                 view, scoreDayAdapter);
@@ -101,6 +129,19 @@ public class AttractionDetailFragment extends Fragment {
         imageView = (ImageView) view.findViewById(R.id.mapImageView);
         if (imageRes >= 0)
             imageView.setImageResource(imageRes);
+
+        final android.os.Handler h = new android.os.Handler();
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                scoreDayAdapter.setAll(scoreList);
+                h.postDelayed(this,1000);
+                Log.d("doe"," ik dit");
+            }
+        };
+        h.post(r);
+
+
         return view;
     }
 
