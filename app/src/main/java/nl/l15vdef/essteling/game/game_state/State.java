@@ -5,6 +5,8 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.sql.SQLException;
+
 import nl.l15vdef.essteling.game.GameStateManager;
 
 /**
@@ -21,7 +23,7 @@ public abstract class State {
         this.gm = gm;
     }
 
-    public abstract void init(Object... objects);
+    public abstract void init(Object... objects) throws SQLException, ClassNotFoundException;
     public abstract void update(long updateTime);
     public abstract void draw(Canvas canvas, Paint p);
     public abstract boolean onTouchEvent(MotionEvent event);

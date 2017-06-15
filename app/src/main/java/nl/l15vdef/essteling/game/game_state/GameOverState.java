@@ -1,17 +1,20 @@
 package nl.l15vdef.essteling.game.game_state;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.sql.SQLException;
+
+import nl.l15vdef.essteling.data.ScoreSender;
 import nl.l15vdef.essteling.game.GameStateManager;
-import nl.l15vdef.essteling.game.game_objects.Background;
 import nl.l15vdef.essteling.game.game_objects.BackgroundMoving;
 
-import static java.security.AccessController.getContext;
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Maarten on 15/06/2017.
@@ -22,17 +25,26 @@ public class GameOverState extends State{
     private BackgroundMoving bm;
     private int score;
 
-    public GameOverState(View v, GameStateManager gm) {
+    public GameOverState(View v, GameStateManager gm) throws SQLException, ClassNotFoundException {
         super(v, gm);
         init();
     }
 
     @Override
-    public void init(Object... objects) {
+    public void init(Object... objects) throws SQLException, ClassNotFoundException {
+        final SharedPreferences.Editor editor = v.getContext().getSharedPreferences("Var_Score_Data", MODE_PRIVATE).edit();
+        final SharedPreferences prefs = v.getContext().getSharedPreferences("Var_Score_Data", MODE_PRIVATE);
+        String name = prefs.getString("Name" , "Anonymous");
         bm = new BackgroundMoving(v,gm);
         score = 0;
         if(objects.length >= 1){
             score = (int) objects[0];
+            ScoreSender ScS = new ScoreSender("Araconda");
+            ScS.voegScoreToe(name , score);
+            int tempScore = prefs.getInt("HighScore" , 0);
+            if(tempScore < score){
+                editor.putInt("HighScore" , score);
+            }
         }
     }
 
