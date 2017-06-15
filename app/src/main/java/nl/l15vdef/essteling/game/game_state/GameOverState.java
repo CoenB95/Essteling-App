@@ -25,13 +25,13 @@ public class GameOverState extends State{
     private BackgroundMoving bm;
     private int score;
 
-    public GameOverState(View v, GameStateManager gm) throws SQLException, ClassNotFoundException {
+    public GameOverState(View v, GameStateManager gm) {
         super(v, gm);
         init();
     }
 
     @Override
-    public void init(Object... objects) throws SQLException, ClassNotFoundException {
+    public void init(Object... objects) {
         final SharedPreferences.Editor editor = v.getContext().getSharedPreferences("Var_Score_Data", MODE_PRIVATE).edit();
         final SharedPreferences prefs = v.getContext().getSharedPreferences("Var_Score_Data", MODE_PRIVATE);
         String name = prefs.getString("Name" , "Anonymous");
@@ -40,7 +40,13 @@ public class GameOverState extends State{
         if(objects.length >= 1){
             score = (int) objects[0];
             ScoreSender ScS = new ScoreSender("Araconda");
-            ScS.voegScoreToe(name , score);
+            try {
+                ScS.voegScoreToe(name , score);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
             int tempScore = prefs.getInt("HighScore" , 0);
             if(tempScore < score){
                 editor.putInt("HighScore" , score);
