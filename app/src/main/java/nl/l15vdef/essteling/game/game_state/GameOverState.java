@@ -34,18 +34,22 @@ public class GameOverState extends State{
     public void init(Object... objects) {
         final SharedPreferences.Editor editor = v.getContext().getSharedPreferences("Var_Score_Data", MODE_PRIVATE).edit();
         final SharedPreferences prefs = v.getContext().getSharedPreferences("Var_Score_Data", MODE_PRIVATE);
+        final SharedPreferences prefsi = v.getContext().getSharedPreferences("Var_internet_acces", MODE_PRIVATE);
         String name = prefs.getString("Name" , "Anonymous");
         bm = new BackgroundMoving(v,gm);
         score = 0;
         if(objects.length >= 1){
             score = (int) objects[0];
-            ScoreSender ScS = new ScoreSender("Araconda");
-            try {
-                ScS.voegScoreToe(name , score);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+            Boolean mayAcces = prefsi.getBoolean("mayAcces" , false);
+            if(mayAcces == true) {
+                ScoreSender ScS = new ScoreSender("Araconda");
+                try {
+                    ScS.voegScoreToe(name, score);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
             int tempScore = prefs.getInt("HighScore" , 0);
             if(tempScore < score){

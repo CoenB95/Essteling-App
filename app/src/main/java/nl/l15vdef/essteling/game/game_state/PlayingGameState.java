@@ -1,5 +1,6 @@
 package nl.l15vdef.essteling.game.game_state;
 
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -18,6 +19,7 @@ import nl.l15vdef.essteling.game.game_objects.PickUp;
 import nl.l15vdef.essteling.game.game_objects.Raster;
 import nl.l15vdef.essteling.game.game_objects.snake.Snake;
 
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -29,7 +31,8 @@ public class PlayingGameState extends State {
     public final static int row = 15;
     public final static int col = 10;
 
-    public final static int gameSpeedInMilliSeconds = 150;
+
+    public static int gameSpeedInMilliSeconds;
 
     public int pixelPerRow;
     public int pixelPerCol;
@@ -52,6 +55,20 @@ public class PlayingGameState extends State {
     public PlayingGameState(View v, GameStateManager gm){
         super(v,gm);
         init();
+
+        final SharedPreferences prefs = v.getContext().getSharedPreferences("Var_Score_Data", MODE_PRIVATE);
+        String diff = prefs.getString("Diff" , "Child");
+        System.out.println(diff);
+        if(diff.equals("Child")){
+            gameSpeedInMilliSeconds = 400;
+        }
+        if(diff.equals("Teenager")){
+            gameSpeedInMilliSeconds = 200;
+        }
+        if(diff.equals("Adult")){
+            gameSpeedInMilliSeconds = 50;
+        }
+        System.out.println(gameSpeedInMilliSeconds);
     }
 
     public void init(Object... objects){
