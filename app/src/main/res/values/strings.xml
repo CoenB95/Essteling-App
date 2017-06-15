@@ -37,7 +37,9 @@
     <string name="settings">Settings</string>
     <string name="scores">Scores</string>
 
-    <string name="dif">difficult</string>
+    <string name="dif">Difficult</string>
+
+    <string name="network">Network</string>
 
 
     <string-array name="country_arrays">

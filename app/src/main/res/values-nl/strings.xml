@@ -44,5 +44,6 @@
     <string name="home">Home</string>
     <string name="scores">Scoren</string>
     <string name="settings">Opties</string>
-    <string name="dif">moeilijkheid</string>
+    <string name="dif">Moeilijkheid</string>
+    <string name="network">Internet</string>
 </resources>
