@@ -46,4 +46,5 @@
     <string name="settings">Opties</string>
     <string name="dif">Moeilijkheid</string>
     <string name="network">Internet</string>
+    <string name="name_size_is_too_damm_high">Maximale groote is 15</string>
 </resources>

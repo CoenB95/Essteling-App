@@ -140,7 +140,7 @@ public class PlayingGameState extends State {
     public void draw(Canvas canvas, Paint p) {
         b.draw(canvas,p);
         //canvas.drawRGB(255,255,255);
-        r.draw(canvas,p);
+        //r.draw(canvas,p);
 
         pickUp.draw(canvas,p);
 

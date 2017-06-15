@@ -23,7 +23,7 @@ public class BackgroundMoving extends GameObject {
         super(v);
         this.gm = gm;
         this.position = new Point(0,0);
-        background = BitmapFactory.decodeResource(v.getResources(), R.drawable.snake_background2);
+        background = BitmapFactory.decodeResource(v.getResources(), R.drawable.no_watermark);
         background = Bitmap.createScaledBitmap(background,
                 gm.getScreenDimensions().x,
                 gm.getScreenDimensions().y,true);

@@ -28,7 +28,6 @@ public class GameOverState extends State{
     private BackgroundMoving bm;
     private int score;
     private int hightscore;
-    private StartGameButton gameButton;
 
     public GameOverState(View v, GameStateManager gm){
         super(v, gm);
@@ -42,11 +41,7 @@ public class GameOverState extends State{
         final SharedPreferences prefsi = v.getContext().getSharedPreferences("Var_internet_acces", MODE_PRIVATE);
         String name = prefs.getString("Name" , "Anonymous");
         bm = new BackgroundMoving(v,gm);
-        gameButton = new StartGameButton(v,new Point(
-                gm.getScreenDimensions().x/2 - 300,
-                gm.getScreenDimensions().y/2 + 500 ),
-                600,300,"Click to continue", R.color.colorAccent2
-                );
+
         score = 0;
         if(objects.length >= 1){
             score = (int) objects[0];
@@ -77,8 +72,6 @@ public class GameOverState extends State{
     @Override
     public void draw(Canvas canvas, Paint p) {
         int color = p.getColor();
-
-        gameButton.draw(canvas,p);
 
                 bm.draw(canvas,p);
         p.setTextSize(70);

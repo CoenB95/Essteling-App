@@ -52,4 +52,5 @@
         <item>Teenager</item>
         <item>Adult</item>
     </string-array>
+    <string name="name_size_is_too_damm_high">Maximum name size =15</string>
 </resources>
