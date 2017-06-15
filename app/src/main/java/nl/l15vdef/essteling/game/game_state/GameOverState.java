@@ -49,6 +49,7 @@ public class GameOverState extends State{
             if(mayAcces == true) {
                 ScoreSender ScS = new ScoreSender("Araconda");
                 try {
+                    if(score > 0)
                     ScS.voegScoreToe(name, score);
                 } catch (SQLException e) {
                     e.printStackTrace();
