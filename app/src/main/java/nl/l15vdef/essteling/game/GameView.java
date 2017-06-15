@@ -2,23 +2,14 @@ package nl.l15vdef.essteling.game;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Point;
-import android.os.Build;
 import android.os.Looper;
 import android.util.Log;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.view.WindowManager;
-
-import nl.l15vdef.essteling.R;
-import nl.l15vdef.essteling.game.game_objects.Background;
 
 public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Callback{
 
@@ -30,17 +21,15 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
     private boolean isRunning;
 
     private double fps;
-    private long updateTime;
+    private long frameTime;
 
-    private final int fpsCheckTime = 500;
-
-
-
+    private final int infoRefreshTime = 500;
     private Paint paint;
-
     private GameStateManager gameStateManager;
 
-    private Background b;
+    private long renderTime;
+    private int tickTime;
+
 
 
 
@@ -50,9 +39,11 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
         //init gameStateManager
         gameStateManager = new GameStateManager(this);
 
-        fps = 0;
+        //begin fps will be displayed for infoRefreshTime milliseconds
+        fps = 60;
 
-
+        renderTime = 0;
+        tickTime = 0;
 
         surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
@@ -60,9 +51,11 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
 
     public void run() {
         long lastLoopTime = System.nanoTime();
-
         long lastFpsTime = 0;
         int frame = 0;
+
+        double tickTimeSinceRefresh = 0;
+        double renderTimeSinceRefresh = 0;
         Looper.prepare();
 
         while (isRunning) {
@@ -70,39 +63,43 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
             // will be used to calculate how far the entities should
             // move this loop
             long now = System.nanoTime();
-            updateTime = (now - lastLoopTime)  / 1000000;
+            frameTime = (now - lastLoopTime)  / 1000000;
             lastLoopTime = now;
 
-
-            // update the frame counter
-            lastFpsTime += updateTime;
-
+            //update the time since refreshing the fps
+            lastFpsTime += frameTime;
 
 
-            // update our FPS counter if a second has passed since
+
+            // update our FPS counter if infoRefreshTime milliseconds has passed since
             // we last recorded
-            if (lastFpsTime >= fpsCheckTime) {
+            if (lastFpsTime >= infoRefreshTime) {
                 lastFpsTime = 0;
-                fps = frame *  ((double) 1000/ (double) fpsCheckTime);
+                fps = frame *  ((double) 1000/ (double) infoRefreshTime);
+                double amountOfFramesBetweenRefresh = ((double) 1000/ (double) infoRefreshTime);
+                tickTime = (int) ((tickTimeSinceRefresh / frame) * amountOfFramesBetweenRefresh);
+                renderTime = (int) ((renderTimeSinceRefresh / frame)*  amountOfFramesBetweenRefresh);
+
                 frame = 0;
+                tickTimeSinceRefresh = 0;
+                renderTimeSinceRefresh = 0;
+
             }else frame++;
 
-            //long updateTiming = System.currentTimeMillis();
-
+            long beginUpdateTime = System.nanoTime();
             update();
+            tickTimeSinceRefresh += (System.nanoTime() - beginUpdateTime) / 1000000;
 
-            //updateTiming = System.currentTimeMillis() - updateTiming;
-
-            //long drawTime = System.currentTimeMillis();
-
+            long beginRenderTime = System.nanoTime();
             draw();
-
-            //drawTime = System.currentTimeMillis() - drawTime;
-
-
-            //Log.d("Game","total time = " + this.updateTime + "\nupdate time =  " + updateTiming + "\ndraw time =  " + drawTime);
+            renderTimeSinceRefresh += (System.nanoTime() - beginRenderTime) / 1000000;
         }
     }
+
+    public void update(){
+        gameStateManager.update(frameTime);
+    }
+
     public void draw(){
         if(surfaceHolder.getSurface().isValid()) {
 
@@ -123,15 +120,14 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
                 paint.setTextSize(20);
                 paint.setColor(getResources().getColor(android.R.color.white));
                 canvas.drawText("" + fps, 20, 20, paint);
+                canvas.drawText("" + tickTime,80,20,paint);
+                canvas.drawText(""+ renderTime,140,20,paint);
+
 
 
                 surfaceHolder.unlockCanvasAndPost(canvas);
             }
         }else Log.e("canvas","null");
-    }
-
-    public void update(){
-        gameStateManager.update(updateTime);
     }
 
     @Override

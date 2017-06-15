@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -106,13 +105,13 @@ public class Snake extends GameObject {
 
     @Override
     public void update(long updateTime) {
-        double pixelPerMiliSec = (double) playingGameState.pixelPerCol/  (double) PlayingGameState.gameSpeedInMiliSeconds;
+        double pixelPerMiliSec = (double) playingGameState.pixelPerCol/  (double) PlayingGameState.gameSpeedInMilliSeconds;
 
 
         offSet.y -= pixelPerMiliSec * updateTime;
 
 
-        if(totalUpdateTime >= PlayingGameState.gameSpeedInMiliSeconds){
+        if(totalUpdateTime >= PlayingGameState.gameSpeedInMilliSeconds){
             totalUpdateTime = 0;
             offSet = new Point(0,0);
             updateCoords(updateTime);
@@ -134,44 +133,44 @@ public class Snake extends GameObject {
             prevRaster.remove();
         }
 
-
+        Direction d = nextDirection;
             //top
         if(direction == TOP){
-            if(nextDirection == TOP){
+            if(d == TOP){
                 prevRaster.add(new DirectionAndPosition(new Point(rasterChords),direction,randomStraight.get((int) (Math.random() * 3))));
-            }else if(nextDirection == RIGHT){
+            }else if(d == RIGHT){
                 prevRaster.add(new DirectionAndPosition(new Point(rasterChords),direction,GameView.RotateBitmap(snakeTurn,0)));
-            }else if(nextDirection == LEFT){
+            }else if(d == LEFT){
                 prevRaster.add(new DirectionAndPosition(new Point(rasterChords),direction,GameView.MirrorBitmap(snakeTurn)));
             }
 
             //right
         }else if(direction == RIGHT){
-            if (nextDirection == RIGHT){
+            if (d == RIGHT){
                 prevRaster.add(new DirectionAndPosition(new Point(rasterChords),direction,GameView.RotateBitmap(randomStraight.get((int) (Math.random() * 3)),90)));
-            }else if(nextDirection == TOP){
+            }else if(d == TOP){
                 prevRaster.add(new DirectionAndPosition(new Point(rasterChords),direction,GameView.RotateBitmap(snakeTurn,-180)));
-            }else if (nextDirection == BOTTOM){
+            }else if (d == BOTTOM){
                 prevRaster.add(new DirectionAndPosition(new Point(rasterChords),direction,GameView.MirrorBitmap(snakeTurn)));
             }
 
             //Left
         }else if(direction == LEFT){
-            if(nextDirection == LEFT){
+            if(d == LEFT){
                 prevRaster.add(new DirectionAndPosition(new Point(rasterChords),direction,GameView.RotateBitmap(randomStraight.get((int) (Math.random() * 3)),-90)));
-            }else if(nextDirection == TOP){
+            }else if(d == TOP){
                 prevRaster.add(new DirectionAndPosition(new Point(rasterChords),direction,GameView.RotateBitmap(snakeTurn,-90)));
-            }else if(nextDirection == BOTTOM){
+            }else if(d == BOTTOM){
                 prevRaster.add(new DirectionAndPosition(new Point(rasterChords),direction,GameView.RotateBitmap(snakeTurn,0)));
             }
 
             //bottom
         }else if(direction == BOTTOM){
-            if(nextDirection == BOTTOM){
+            if(d == BOTTOM){
                 prevRaster.add(new DirectionAndPosition(new Point(rasterChords),direction,GameView.RotateBitmap(randomStraight.get((int) (Math.random() * 3)),180)));
-            }else if(nextDirection == RIGHT){
+            }else if(d == RIGHT){
                 prevRaster.add(new DirectionAndPosition(new Point(rasterChords),direction,GameView.RotateBitmap(snakeTurn,-90)));
-            }else if (nextDirection == LEFT){
+            }else if (d == LEFT){
                 prevRaster.add(new DirectionAndPosition(new Point(rasterChords),direction,GameView.RotateBitmap(snakeTurn,180)));
             }
         }
