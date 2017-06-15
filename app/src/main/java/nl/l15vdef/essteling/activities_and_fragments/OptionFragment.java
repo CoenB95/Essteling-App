@@ -36,27 +36,68 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_option_fragment, container, false);
         getActivity().setTitle(getResources().getString(R.string.settings));
+        final SharedPreferences prefs = getActivity().getSharedPreferences("Var_internet_acces", MODE_PRIVATE);
+        final SharedPreferences prefss = getActivity().getSharedPreferences("Var_Score_Data", MODE_PRIVATE);
 
         checkWifiOnly = (Switch) view.findViewById(R.id.option_wifi_check);
+
+        checkWifiOnly.setChecked(prefs.getBoolean("Enabled" , false));
+
         languageSelection = (Spinner) view.findViewById(R.id.language_select_spin);
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.country_arrays, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
         languageSelection.setAdapter(adapter);
+        String langu = prefs.getString("Lang", "en");
+        if(langu.equals("en")){
+            languageSelection.setSelection(0);
+        }
+        if(langu.equals("nl")){
+            languageSelection.setSelection(1);
+        }
         languageSelection.setOnItemSelectedListener(this);
 
         difSpinner = (Spinner) view.findViewById(R.id.dif_select_spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getActivity(),
                 R.array.moeilijkheid, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
         difSpinner.setAdapter(adapter2);
-        //difSpinner.setOnItemSelectedListener(this);
+        String diff = prefss.getString("Diff" , "Child");
+
+        if(diff.equals("Child")){
+            difSpinner.setSelection(0);
+        }
+        if(diff.equals("Teenager")){
+            difSpinner.setSelection(1);
+        }
+        if(diff.equals("Adult")){
+            difSpinner.setSelection(2);
+        }
+        difSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                final SharedPreferences.Editor editor = getActivity().getSharedPreferences("Var_Score_Data", MODE_PRIVATE).edit();
+
+                if(position == 0){
+                    editor.putString("Diff" , "Child");
+                    editor.apply();
+                }
+                if(position == 1){
+                    editor.putString("Diff" , "Teenager");
+                    editor.apply();
+                }
+                if(position == 2){
+                    editor.putString("Diff" , "Adult");
+                    editor.apply();
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         checkWifiConnection();
         return view;
@@ -71,10 +112,13 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
 
                 if(isChecked){
                     blockMobileInternet();
+                    editor.putBoolean("Enabled" , true);
+                    editor.apply();
                 }else{
                     mayAccesInternet = true;
                     editor.putBoolean("mayAcces" , mayAccesInternet);
-                    editor.commit();
+                    editor.putBoolean("Enabled" , false);
+                    editor.apply();
                 }
 
             }
@@ -111,13 +155,20 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
+        final SharedPreferences.Editor editor = getActivity().getSharedPreferences("Var_internet_acces", MODE_PRIVATE).edit();
+        final SharedPreferences prefs = getActivity().getSharedPreferences("Var_internet_acces", MODE_PRIVATE);
         System.out.println("Pos: " + pos + " ID: )" + id);
+
         String lang = "";
         if(pos == 0){
             lang = "en";
+            editor.putString("Lang" , lang);
+            editor.apply();
         }
         if(pos == 1){
             lang = "nl";
+            editor.putString("Lang" , lang);
+            editor.apply();
         }
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);

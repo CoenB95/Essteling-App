@@ -1,5 +1,6 @@
 package nl.l15vdef.essteling.game.game_objects.snake;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -18,6 +19,7 @@ import nl.l15vdef.essteling.game.OnSwipeListener;
 import nl.l15vdef.essteling.game.game_objects.GameObject;
 import nl.l15vdef.essteling.game.game_state.PlayingGameState;
 
+import static android.content.Context.MODE_PRIVATE;
 import static nl.l15vdef.essteling.game.OnSwipeListener.Direction.down;
 import static nl.l15vdef.essteling.game.OnSwipeListener.Direction.left;
 import static nl.l15vdef.essteling.game.OnSwipeListener.Direction.right;
@@ -283,8 +285,18 @@ public class Snake extends GameObject {
     }
 
     public void oneLonger() {
+        final SharedPreferences prefs = v.getContext().getSharedPreferences("Var_Score_Data", MODE_PRIVATE);
+        String diff = prefs.getString("Diff" , "Child");
         sizeOfSnake++;
-        score++;
+        if(diff.equals("Child")){
+            score++;
+        }
+        if(diff.equals("Teenager")){
+            score = score + 2;
+        }
+        if(diff.equals("Adult")){
+            score = score + 3;
+        }
     }
 
     public Direction getDirection() {
