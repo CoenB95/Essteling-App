@@ -1,7 +1,6 @@
 package nl.l15vdef.essteling.activities_and_fragments;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -27,6 +26,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
 import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.activities_and_fragments.attractionChooser.AttractionChooserFragment;
 import nl.l15vdef.essteling.activities_and_fragments.helpMenu.HelpMenuActivity;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        AndroidThreeTen.init(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
