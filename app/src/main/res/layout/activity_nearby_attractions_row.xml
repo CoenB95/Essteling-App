@@ -20,28 +20,29 @@
         android:text="@string/dummy"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="@+id/activity_nearbyAttractions_row_playButton"
-        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/activity_nearbyAttractions_row_playButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.347" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
         android:id="@+id/activity_nearbyAttractions_row_playButton"
-        android:layout_width="87dp"
-        android:layout_height="49dp"
+        android:layout_width="77dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginRight="7dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:gravity="center"
         android:background="@color/colorAccent2"
         android:focusable="false"
+        android:gravity="center"
         android:text="@string/play"
         android:textColor="@android:color/background_light"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="299dp" />
 </android.support.constraint.ConstraintLayout>

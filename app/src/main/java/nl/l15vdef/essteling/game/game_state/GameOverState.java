@@ -25,7 +25,7 @@ public class GameOverState extends State{
     private BackgroundMoving bm;
     private int score;
 
-    public GameOverState(View v, GameStateManager gm) {
+    public GameOverState(View v, GameStateManager gm){
         super(v, gm);
         init();
     }

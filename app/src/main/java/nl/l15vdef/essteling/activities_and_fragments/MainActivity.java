@@ -2,6 +2,8 @@ package nl.l15vdef.essteling.activities_and_fragments;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -11,11 +13,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.activities_and_fragments.attractionChooser.AttractionChooserFragment;
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String MAIN_BACKSTACK_TAG = "mainstack";
+    private static boolean starting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,32 @@ public class MainActivity extends AppCompatActivity
             ft.replace(R.id.content_main, fragment);
             //ft.addToBackStack()
             ft.commit();
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Title");
+
+        // Set up the input
+        final EditText input = new EditText(this);
+        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        final SharedPreferences.Editor editor = getSharedPreferences("Var_Score_Data", MODE_PRIVATE).edit();
+        final SharedPreferences sharedPreferences = getSharedPreferences("Var_Score_Data", MODE_PRIVATE);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String name = input.getText().toString();
+                editor.putString("Name",name);
+                editor.apply();
+            }
+        });
+        Log.d("name",sharedPreferences.getString("Name","Anonymous"));
+        if(sharedPreferences.getString("Name", "Anonymous") == "Anonymous") {
+            builder.show();
         }
     }
 
