@@ -40,10 +40,11 @@ public class PickUp extends GameObject {
         canvas.drawBitmap(image,playingGameState.offSet + rasterChords.x * playingGameState.pixelPerRow,rasterChords.y * playingGameState.pixelPerCol,p);
     }
 
-    public void intersect(Snake snake){
+    public boolean intersect(Snake snake){
         if(rasterChords.equals(snake.getRasterChords())){
             shouldRemove = true;
         }
+        return true;
     }
 
     public Point getRasterChords() {

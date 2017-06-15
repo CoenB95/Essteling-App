@@ -98,6 +98,9 @@ public class HomepageFragment extends Fragment {
                 }
             }, strings, getActivity(), 10000);
         } catch (BluetoothNotAvailableException | LocationPermissionNotExceptedException e) {
+            // TODO: 11/06/2017 debug
+            attractions.add("Debug");
+            attractionslistAdapter.notifyDataSetChanged();
             e.printStackTrace();
         }
 

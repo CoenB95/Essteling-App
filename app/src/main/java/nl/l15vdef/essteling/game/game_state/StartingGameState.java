@@ -12,6 +12,7 @@ import android.view.WindowManager;
 
 import nl.l15vdef.essteling.game.GameStateManager;
 import nl.l15vdef.essteling.game.game_objects.Background;
+import nl.l15vdef.essteling.game.game_objects.BackgroundMoving;
 import nl.l15vdef.essteling.game.game_objects.StartGameButton;
 
 /**
@@ -19,7 +20,7 @@ import nl.l15vdef.essteling.game.game_objects.StartGameButton;
  */
 
 public class StartingGameState extends State {
-    private Background b;
+    private BackgroundMoving b;
     private StartGameButton gameButton;
     private boolean starting;
 
@@ -28,9 +29,12 @@ public class StartingGameState extends State {
         init();
     }
 
-    public void init(){
+    public void init(Object... objects){
         //init background
-        b = new Background(v);
+        if(objects.length >= 1){
+            int score =  (int) objects[0];
+        }
+        b = new BackgroundMoving(v,gm);
         gameButton = new StartGameButton(v,new Point(gm.getScreenDimensions().x/2 - 250,gm.getScreenDimensions().y/2 - 100),500,200);
         starting = false;
     }
@@ -40,6 +44,7 @@ public class StartingGameState extends State {
         if(starting){
             gm.setState(GameStateManager.PLAYING_STATE);
         }
+        b.update(updateTime);
     }
 
     @Override
@@ -47,6 +52,14 @@ public class StartingGameState extends State {
         // draw background
         b.draw(canvas,p);
         gameButton.draw(canvas,p);
+
+        p.setTextSize(70);
+        Rect bounds = new Rect();
+        String startGameText = "Anaconda";
+        p.getTextBounds(startGameText, 0, startGameText.length(), bounds);
+        int height = bounds.height();
+        int width = bounds.width();
+        canvas.drawText(startGameText,gm.getScreenDimensions().x/2 - width/2,300,p);
     }
 
     @Override

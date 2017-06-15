@@ -29,7 +29,7 @@ public class PlayingGameState extends State {
     public final static int row = 15;
     public final static int col = 10;
 
-    public final static int gameSpeedInMiliSeconds = 300;
+    public final static int gameSpeedInMilliSeconds = 150;
 
     public int pixelPerRow;
     public int pixelPerCol;
@@ -37,10 +37,12 @@ public class PlayingGameState extends State {
 
     private GestureDetector gestureDetector;
 
-
     private Background b;
     private Raster r;
+
     private List<PickUp> pickUps;
+    private PickUp pickUp;
+
     private long timer;
     private Snake snake;
 
@@ -52,10 +54,23 @@ public class PlayingGameState extends State {
         init();
     }
 
-    public void init(){
+    public void init(Object... objects){
+        offSet = gm.getScreenDimensions().x/4;
+        int width = offSet * 3;
+        pixelPerRow = width/row;
+        pixelPerCol = gm.getScreenDimensions().y / col;
+
         b = new Background(v);
         r = new Raster(v,gm);
 
+
+
+        timer = 0;
+
+        pickUps = new ArrayList<>();
+        pickUp = new PickUp(v,new Point( (int) (Math.random() * row), (int) (Math.random() * col)),this);
+
+        snake = new Snake(v,new Point(5,5),this);
 
         gestureDetector = new GestureDetector(v.getContext(),new OnSwipeListener(){
             @Override
@@ -64,37 +79,34 @@ public class PlayingGameState extends State {
                 return true;
             }
         });
-
-
-        pickUps = new ArrayList<>();
-        timer = System.currentTimeMillis();
-
-        offSet = gm.getScreenDimensions().x/4;
-        int width = offSet * 3;
-        pixelPerRow = width/row;
-        pixelPerCol = gm.getScreenDimensions().y / col;
-        snake = new Snake(v,new Point(5,5),this);
     }
 
     @Override
     public void update(long updateTime) {
         if(System.currentTimeMillis() - timer > 5000){
             timer = System.currentTimeMillis();
-            pickUps.add(new PickUp(v,new Point( (int) (Math.random() * row), (int) (Math.random() * col)),this));
-        }
+            //pickUps.add(new PickUp(v,new Point( (int) (Math.random() * row), (int) (Math.random() * col)),this));
+        }else timer += updateTime;
         snake.update(updateTime);
 
 
         //detect when the snake gets out of the map
-        if(snake.getRasterChords().y > col){
+        if(snake.getRasterChords().y > col-1){
             snake.setRasterChords(new Point(snake.getRasterChords().x,0));
         }else if(snake.getRasterChords().y < 0){
-            snake.setRasterChords(new Point(snake.getRasterChords().x,col));
-        }else if(snake.getRasterChords().x > row){
+            snake.setRasterChords(new Point(snake.getRasterChords().x,col-1));
+        }else if(snake.getRasterChords().x > row-1){
             snake.setRasterChords(new Point(0,snake.getRasterChords().y));
         }else if(snake.getRasterChords().x < 0){
-            snake.setRasterChords(new Point(row,snake.getRasterChords().y));
+            snake.setRasterChords(new Point(row-1,snake.getRasterChords().y));
         }
+
+        pickUp.intersect(snake);
+        if(pickUp.isShouldRemove()) {
+            pickUp = new PickUp(v, new Point((int) (Math.random() * row), (int) (Math.random() * col)), this);
+            snake.oneLonger();
+        }
+
 
         Iterator<PickUp> pickUpIterator = pickUps.iterator();
         while (pickUpIterator.hasNext()){
@@ -108,7 +120,7 @@ public class PlayingGameState extends State {
 
         //detect if an game has ended
         if(snake.isDead()){
-            gm.setState(GameStateManager.STARTING_STATE);
+            gm.setState(GameStateManager.GAMEOVER_STATE,snake.getScore());
         }
     }
 
@@ -120,6 +132,7 @@ public class PlayingGameState extends State {
         for (PickUp pickUp : pickUps) {
             pickUp.draw(canvas,p);
         }
+        pickUp.draw(canvas,p);
 
         snake.draw(canvas,p);
         float textSize = p.getTextSize();
