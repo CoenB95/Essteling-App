@@ -35,7 +35,7 @@ public class StartingGameState extends State {
             int score =  (int) objects[0];
         }
         b = new BackgroundMoving(v,gm);
-        gameButton = new StartGameButton(v,new Point(gm.getScreenDimensions().x/2 - 250,gm.getScreenDimensions().y/2 - 100),500,200);
+        gameButton = new StartGameButton(v,new Point(gm.getScreenDimensions().x/2 - 250,gm.getScreenDimensions().y/2 - 100),500,200,"Start game",android.R.color.holo_red_light);
         starting = false;
     }
 
@@ -59,7 +59,7 @@ public class StartingGameState extends State {
         p.getTextBounds(startGameText, 0, startGameText.length(), bounds);
         int height = bounds.height();
         int width = bounds.width();
-        canvas.drawText(startGameText,gm.getScreenDimensions().x/2 - width/2,300,p);
+        canvas.drawText(startGameText,gm.getScreenDimensions().x/2 - width/2,gm.getScreenDimensions().y/2 - 300,p);
     }
 
     @Override

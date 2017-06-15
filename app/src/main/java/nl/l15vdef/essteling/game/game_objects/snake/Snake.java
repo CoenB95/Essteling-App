@@ -342,6 +342,18 @@ public class Snake extends GameObject {
 
     }
 
+    public boolean intersects(Point p) {
+        if(rasterChords.equals(p)){
+            return true;
+        }else {
+            for (DirectionAndPosition directionAndPosition : prevRaster) {
+                if(rasterChords.equals(directionAndPosition.getPoint()))
+                    return true;
+            }
+        }
+        return false;
+    }
+
     public enum Direction{
         TOP, LEFT,RIGHT, BOTTOM
     }

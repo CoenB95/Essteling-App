@@ -43,7 +43,6 @@ public class PlayingGameState extends State {
     private Background b;
     private Raster r;
 
-    private List<PickUp> pickUps;
     private PickUp pickUp;
 
     private long timer;
@@ -84,7 +83,7 @@ public class PlayingGameState extends State {
 
         timer = 0;
 
-        pickUps = new ArrayList<>();
+
         pickUp = new PickUp(v,new Point( (int) (Math.random() * row), (int) (Math.random() * col)),this);
 
         snake = new Snake(v,new Point(5,5),this);
@@ -102,7 +101,6 @@ public class PlayingGameState extends State {
     public void update(long updateTime) {
         if(System.currentTimeMillis() - timer > 5000){
             timer = System.currentTimeMillis();
-            //pickUps.add(new PickUp(v,new Point( (int) (Math.random() * row), (int) (Math.random() * col)),this));
         }else timer += updateTime;
         snake.update(updateTime);
 
@@ -120,19 +118,16 @@ public class PlayingGameState extends State {
 
         pickUp.intersect(snake);
         if(pickUp.isShouldRemove()) {
-            pickUp = new PickUp(v, new Point((int) (Math.random() * row), (int) (Math.random() * col)), this);
-            snake.oneLonger();
-        }
-
-
-        Iterator<PickUp> pickUpIterator = pickUps.iterator();
-        while (pickUpIterator.hasNext()){
-            PickUp p = pickUpIterator.next();
-            p.intersect(snake);
-            if(p.isShouldRemove()){
-                pickUpIterator.remove();
-                snake.oneLonger();
+            Point p = null;
+            boolean shouldTry = true;
+            while (shouldTry){
+                p = new Point((int) (Math.random() * row), (int) (Math.random() * col));
+                if(!snake.intersects(p)){
+                    shouldTry = false;
+                }
             }
+            pickUp = new PickUp(v,p, this);
+            snake.oneLonger();
         }
 
         //detect if an game has ended
@@ -145,10 +140,8 @@ public class PlayingGameState extends State {
     public void draw(Canvas canvas, Paint p) {
         b.draw(canvas,p);
         //canvas.drawRGB(255,255,255);
-        //r.draw(canvas,p);
-        for (PickUp pickUp : pickUps) {
-            pickUp.draw(canvas,p);
-        }
+        r.draw(canvas,p);
+
         pickUp.draw(canvas,p);
 
         snake.draw(canvas,p);

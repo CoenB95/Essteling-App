@@ -1,25 +1,30 @@
 package nl.l15vdef.essteling.activities_and_fragments;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
 import nl.l15vdef.essteling.R;
@@ -61,11 +66,13 @@ public class MainActivity extends AppCompatActivity
             ft.commit();
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Title");
+        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this,R.style.EditName));
+        builder.setTitle("Please input your name");
 
         // Set up the input
         final EditText input = new EditText(this);
+        input.setTextColor(getResources().getColor(R.color.colorAccent2));
+        input.getBackground().mutate().setColorFilter(ContextCompat.getColor(this,R.color.colorAccent2), PorterDuff.Mode.SRC_ATOP);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
@@ -77,16 +84,32 @@ public class MainActivity extends AppCompatActivity
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String name = input.getText().toString();
-                editor.putString("Name",name);
-                editor.apply();
+
             }
         });
+        builder.setCancelable(false);
+        final AlertDialog d = builder.create();
+        d.setCanceledOnTouchOutside(false);
+
+
         Log.d("name",sharedPreferences.getString("Name","Anonymous"));
         if(sharedPreferences.getString("Name", "Anonymous") == "Anonymous") {
-            builder.show();
+            d.show();
+            d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String name = input.getText().toString();
+                    if(name.length() > 0) {
+                        editor.putString("Name", name);
+                        editor.apply();
+                        d.dismiss();
+                    }
+                }
+            });
         }
     }
+
+
 
     @Override
     public void onBackPressed() {

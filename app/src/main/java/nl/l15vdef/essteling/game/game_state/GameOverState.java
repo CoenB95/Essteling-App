@@ -4,15 +4,18 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 
 import java.sql.SQLException;
 
+import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.data.ScoreSender;
 import nl.l15vdef.essteling.game.GameStateManager;
 import nl.l15vdef.essteling.game.game_objects.BackgroundMoving;
+import nl.l15vdef.essteling.game.game_objects.StartGameButton;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -24,6 +27,8 @@ public class GameOverState extends State{
 
     private BackgroundMoving bm;
     private int score;
+    private int hightscore;
+    private StartGameButton gameButton;
 
     public GameOverState(View v, GameStateManager gm){
         super(v, gm);
@@ -37,6 +42,11 @@ public class GameOverState extends State{
         final SharedPreferences prefsi = v.getContext().getSharedPreferences("Var_internet_acces", MODE_PRIVATE);
         String name = prefs.getString("Name" , "Anonymous");
         bm = new BackgroundMoving(v,gm);
+        gameButton = new StartGameButton(v,new Point(
+                gm.getScreenDimensions().x/2 - 300,
+                gm.getScreenDimensions().y/2 + 500 ),
+                600,300,"Click to continue", R.color.colorAccent2
+                );
         score = 0;
         if(objects.length >= 1){
             score = (int) objects[0];
@@ -51,9 +61,10 @@ public class GameOverState extends State{
                     e.printStackTrace();
                 }
             }
-            int tempScore = prefs.getInt("HighScore" , 0);
-            if(tempScore < score){
+            hightscore = prefs.getInt("HighScore" , 0);
+            if(hightscore < score){
                 editor.putInt("HighScore" , score);
+                hightscore = score;
             }
         }
     }
@@ -67,6 +78,8 @@ public class GameOverState extends State{
     public void draw(Canvas canvas, Paint p) {
         int color = p.getColor();
 
+        gameButton.draw(canvas,p);
+
                 bm.draw(canvas,p);
         p.setTextSize(70);
         Rect bounds = new Rect();
@@ -76,7 +89,7 @@ public class GameOverState extends State{
         int width = bounds.width();
         canvas.drawText(scoreText,gm.getScreenDimensions().x/2 - width/2,gm.getScreenDimensions().y/2 + 200,p);
 
-        String highscore = "Highscore 1"; // TODO: 15/06/2017  create highscore getter
+        String highscore = "Highscore " + hightscore;
         p.getTextBounds(highscore,0,highscore.length(),bounds);
         height = bounds.height();
         width = bounds.width();
