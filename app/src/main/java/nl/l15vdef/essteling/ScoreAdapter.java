@@ -74,8 +74,11 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreHolder>
 				}
 			});
 			indexTextView = (TextView) itemView.findViewById(R.id.scoreIndexTextView);
+			indexTextView.setTextSize(24f);
 			nameTextView = (TextView) itemView.findViewById(R.id.scoreNameTextView);
+			nameTextView.setTextSize(24f);
 			scoreTextView = (TextView) itemView.findViewById(R.id.scorePointsTextView);
+			scoreTextView.setTextSize(24f);
 		}
 
 		public void setScore(int index, Score value) {
