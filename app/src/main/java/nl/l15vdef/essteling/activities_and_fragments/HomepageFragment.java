@@ -84,12 +84,7 @@ public class HomepageFragment extends Fragment {
                         }
                     }
                     if (attractions.size() <= 0) {
-                        //progressBar.setVisibility(View.VISIBLE);
-
-                        // TODO: 10/06/2017 debug
-                        attractions.add("Debug");
-                        attractionslistAdapter.notifyDataSetChanged();
-
+                        progressBar.setVisibility(View.VISIBLE);
                     } else progressBar.setVisibility(View.INVISIBLE);
                     attractionslistAdapter.notifyDataSetChanged();
                 }
@@ -107,9 +102,6 @@ public class HomepageFragment extends Fragment {
                 }
             }, strings, getActivity(), 10000);
         } catch (BluetoothNotAvailableException | LocationPermissionNotExceptedException e) {
-            // TODO: 11/06/2017 debug
-            attractions.add("Debug");
-            attractionslistAdapter.notifyDataSetChanged();
             e.printStackTrace();
         }
 
