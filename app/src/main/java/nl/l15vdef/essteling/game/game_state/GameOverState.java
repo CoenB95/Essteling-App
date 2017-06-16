@@ -47,7 +47,7 @@ public class GameOverState extends State{
             score = (int) objects[0];
             Boolean mayAcces = prefsi.getBoolean("mayAcces" , false);
             if(mayAcces == true) {
-                ScoreSender ScS = new ScoreSender("Araconda");
+                ScoreSender ScS = new ScoreSender("Anaconda");
                 try {
                     if(score > 0)
                     ScS.voegScoreToe(name, score);
