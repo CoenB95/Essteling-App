@@ -9,7 +9,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,6 +28,7 @@ import nl.l15vdef.essteling.Score;
 import nl.l15vdef.essteling.ScoreAdapter;
 import nl.l15vdef.essteling.ScoreLayoutManager;
 import nl.l15vdef.essteling.data.ScoreReceiver;
+import nl.l15vdef.essteling.game.OnSwipeListener;
 
 public class AttractionDetailFragment extends Fragment {
     private ImageView imageView;
@@ -33,6 +36,8 @@ public class AttractionDetailFragment extends Fragment {
     private ArrayList<Score> scoreList = new ArrayList<>();
     private ArrayList<Score> dayScore, weekScore, monthScore, allTimeScore;
     private int pos;
+    private GestureDetector gestureDetector;
+    private GestureDetector gestureDetector2;
     @DrawableRes
     int imageRes = -1;
 
@@ -81,6 +86,7 @@ public class AttractionDetailFragment extends Fragment {
         final RecyclerView scoreRecyclerView = createRecyclerView(R.id.scoreboardDayRecyclerView,
                 view, scoreAdapater);
 
+
         // Tab selected listener
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
@@ -123,6 +129,18 @@ public class AttractionDetailFragment extends Fragment {
         if (imageRes >= 0)
             imageView.setImageResource(imageRes);
 
+        gestureDetector = new GestureDetector(view.getContext(),new OnSwipeListener(){
+            @Override
+            public boolean onSwipe(OnSwipeListener.Direction direction) {
+                if(direction == Direction.left && pos!=tabLayout.getTabCount()-1)
+                    tabLayout.getTabAt(pos+1).select();
+                if(direction == Direction.right && pos>=1)
+                    tabLayout.getTabAt(pos-1).select();
+                return true;
+            }
+        });
+
+
         // Handler for setting adapter data
         final android.os.Handler h = new android.os.Handler();
         Runnable r = new Runnable() {
@@ -147,6 +165,15 @@ public class AttractionDetailFragment extends Fragment {
             }
         };
         h.post(r);
+
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                gestureDetector.onTouchEvent(event);
+                return true;
+            }
+        });
+
         return view;
     }
 
@@ -218,4 +245,6 @@ public class AttractionDetailFragment extends Fragment {
         }
         return tempScoreList;
     }
+
+
 }
