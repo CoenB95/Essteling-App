@@ -12,7 +12,7 @@
     <string name="action_settings">Settings</string>
     <string name="activity_about_maintext">This app is developed for themepark \"De Essteling\". The goal of this application is to entertain people in the queue of the rides. There is also an option to bring information about queue times etc.</string>
     <string name="activity_about_creatortext">Created by : B3</string>
-    <string name="activity_about_versiontext" translatable="false">v0.1-alpha</string>
+    <string name="activity_about_versiontext" translatable="false">v1.0-beta</string>
     <string name="detail_best_of_day">Best of Day</string>
     <string name="detail_best_of_week">Best of Week</string>
     <string name="detail_best_of_year">Best of Year</string>
