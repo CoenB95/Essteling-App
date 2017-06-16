@@ -43,6 +43,7 @@ public class AttractionChooserFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AttractionDetailFragment adf = new AttractionDetailFragment();
                 adf.setImageRes(attractions.get(position).getImage());
+                adf.setAttractionName(attractions.get(position).getName());
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_main, adf)

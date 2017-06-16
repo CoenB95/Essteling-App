@@ -28,16 +28,8 @@ public class AttractionChooserAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-
-
         if(convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_about_list_of_attractions_custom_row,parent,false);
-
-        //background color
-        //if(position % 2 == 1){
-        //    convertView.setBackgroundColor(convertView.getResources().getColor(R.color.colorAccent));
-        //}else convertView.setBackgroundColor(convertView.getResources().getColor(android.R.color.background_light));
-
 
         ImageView attraction = (ImageView) convertView.findViewById(R.id.activit_about_list_of_attractions_custom_row_attraction_image_id);
         attraction.setImageDrawable(convertView.getResources().getDrawable(
