@@ -40,6 +40,10 @@
     <string name="dif">Difficult</string>
 
     <string name="network">Network</string>
+    <string name="name">Name</string>
+    <string name="current">Current:</string>
+    <string name="Change">Change</string>
+    <string name="Apply">Apply</string>
 
 
     <string-array name="country_arrays">
