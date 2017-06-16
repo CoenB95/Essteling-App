@@ -236,7 +236,7 @@ public class AttractionDetailFragment extends Fragment {
     }
 
     // Data uit database parsen naar scores
-    public ArrayList<Score> scoreParsing(ArrayList<String> tempList) {
+    public static ArrayList<Score> scoreParsing(ArrayList<String> tempList) {
         ArrayList<Score> tempScoreList = new ArrayList<>();
         for (String s : tempList) {
             String[] splits = s.split("~");
