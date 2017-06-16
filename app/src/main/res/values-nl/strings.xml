@@ -69,4 +69,8 @@
     <string name="dif">Moeilijkheid</string>
     <string name="network">Internet</string>
     <string name="name_size_is_too_damm_high">Maximale groote is 15</string>
+    <string name="name">Naam</string>
+    <string name="current">Huidig:</string>
+    <string name="Change">Verander</string>
+    <string name="Apply">Bevestig</string>
 </resources>

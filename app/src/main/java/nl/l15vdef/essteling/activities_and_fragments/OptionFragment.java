@@ -13,9 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import java.util.Locale;
 
@@ -30,6 +33,10 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
     private Spinner difSpinner;
     private Configuration config ;
 
+    private TextView currentName;
+    private EditText nameEdit;
+    private Button nameButton;
+
 
     @Nullable
     @Override
@@ -37,7 +44,25 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
         View view = inflater.inflate(R.layout.activity_option_fragment, container, false);
         getActivity().setTitle(getResources().getString(R.string.settings));
         final SharedPreferences prefs = getActivity().getSharedPreferences("Var_internet_acces", MODE_PRIVATE);
+        final SharedPreferences.Editor edit = getActivity().getSharedPreferences("Var_Score_Data", MODE_PRIVATE).edit();
         final SharedPreferences prefss = getActivity().getSharedPreferences("Var_Score_Data", MODE_PRIVATE);
+
+        currentName = (TextView) view.findViewById(R.id.name_current_name);
+        currentName.setText(prefss.getString("Name" , "No name set!"));
+
+        nameEdit = (EditText) view.findViewById(R.id.name_change_name);
+        nameButton = (Button) view.findViewById(R.id.name_button_name);
+        nameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newName = nameEdit.getText().toString();
+                if(!newName.equals("")){
+                    edit.putString("Name" , newName);
+                    edit.apply();
+                    currentName.setText(prefss.getString("Name" , "No name set!"));
+                }
+            }
+        });
 
         checkWifiOnly = (Switch) view.findViewById(R.id.option_wifi_check);
 

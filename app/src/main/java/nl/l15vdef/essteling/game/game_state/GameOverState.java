@@ -4,18 +4,15 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 
 import java.sql.SQLException;
 
-import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.data.ScoreSender;
 import nl.l15vdef.essteling.game.GameStateManager;
 import nl.l15vdef.essteling.game.game_objects.BackgroundMoving;
-import nl.l15vdef.essteling.game.game_objects.StartGameButton;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -60,6 +57,7 @@ public class GameOverState extends State{
             hightscore = prefs.getInt("HighScore" , 0);
             if(hightscore < score){
                 editor.putInt("HighScore" , score);
+                editor.apply();
                 hightscore = score;
             }
         }
