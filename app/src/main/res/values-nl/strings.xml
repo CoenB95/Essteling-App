@@ -74,4 +74,5 @@
     <string name="Change">Verander</string>
     <string name="Apply">Bevestig</string>
     <string name="name_dialog_title">Voeg je naam in</string>
+    <string name="name_warning_bad_word">Niet geaccepteerde naam</string>
 </resources>

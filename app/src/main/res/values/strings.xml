@@ -80,4 +80,5 @@
     </string-array>
     <string name="name_size_is_too_damm_high">Maximum name size =15</string>
     <string name="name_dialog_title">Please input your name</string>
+    <string name="name_warning_bad_word">That name is not accepted</string>
 </resources>

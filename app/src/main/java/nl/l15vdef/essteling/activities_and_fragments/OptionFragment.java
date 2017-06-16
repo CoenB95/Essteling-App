@@ -23,6 +23,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import nl.l15vdef.essteling.R;
+import nl.l15vdef.essteling.data.WordFilter;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -38,10 +39,12 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
     private Button nameButton;
 
 
+    private WordFilter wordFilter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_option_fragment, container, false);
+        wordFilter = new WordFilter(getActivity());
         getActivity().setTitle(getResources().getString(R.string.settings));
         final SharedPreferences prefs = getActivity().getSharedPreferences("Var_internet_acces", MODE_PRIVATE);
         final SharedPreferences.Editor edit = getActivity().getSharedPreferences("Var_Score_Data", MODE_PRIVATE).edit();
@@ -57,9 +60,22 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
             public void onClick(View v) {
                 String newName = nameEdit.getText().toString();
                 if(!newName.equals("")){
-                    edit.putString("Name" , newName);
-                    edit.apply();
-                    currentName.setText(prefss.getString("Name" , "No name set!"));
+                    boolean isBadWord = false;
+                    String newNameLowercase = newName.toLowerCase();
+                    for (String s : wordFilter.getBannedwords()) {
+                        if(newNameLowercase.equals(s)){
+                            isBadWord = true;
+                        }
+                    }
+                    if(isBadWord){
+                        nameEdit.setText("");
+                        nameEdit.setHintTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                        nameEdit.setHint(getString(R.string.name_warning_bad_word));
+                    }else {
+                        edit.putString("Name" , newName);
+                        edit.apply();
+                        currentName.setText(prefss.getString("Name" , "No name set!"));
+                    }
                 }
             }
         });

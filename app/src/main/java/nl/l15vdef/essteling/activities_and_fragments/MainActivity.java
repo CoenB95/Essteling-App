@@ -108,10 +108,11 @@ public class MainActivity extends AppCompatActivity
                     String name = input.getText().toString();
                     if(name.length() > 0) {
                         boolean isBadWord = false;
+                        String nameLowercase = name.toLowerCase();
                         for (String s : wordFilter.getBannedwords()) {
-                            if(name.equals(s)){
+                            if(nameLowercase.equals(s)){
                                 isBadWord = true;
-                                d.setTitle("That word is not accepted");
+                                d.setTitle(getString(R.string.name_warning_bad_word));
                             }
                         }
                         if(!isBadWord) {
