@@ -31,6 +31,8 @@ public class AttractionDetailFragment extends Fragment {
     private ImageView imageView;
     private ScoreReceiver SR;
     private ArrayList<Score> scoreList = new ArrayList<>();
+    private ArrayList<Score> dayScore, weekScore, monthScore, allTimeScore;
+    private int pos;
     @DrawableRes
     int imageRes = -1;
 
@@ -39,77 +41,67 @@ public class AttractionDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.activity_attraction_detail, container, false);
 
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.TabLayout_id); // get the reference of TabLayout
-        TabLayout.Tab firstTab = tabLayout.newTab(); // Create a new Tab names "First Tab"
+        // get the reference of TabLayout
+        final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.TabLayout_id);
+
+        // Create new Tabs
+        TabLayout.Tab firstTab = tabLayout.newTab();
         TabLayout.Tab secondTab = tabLayout.newTab();
         TabLayout.Tab thirdTab = tabLayout.newTab();
         TabLayout.Tab fourthTab = tabLayout.newTab();
-        firstTab.setText("Daily"); // set the Text for the first Tab
+
+        // set Text for the Tabs
+        firstTab.setText("Daily");
         secondTab.setText("Weekly");
         thirdTab.setText("Monthly");
         fourthTab.setText("All Time");
-        tabLayout.addTab(firstTab); // add  the tab to the TabLayout
+
+        // add tabs to the TabLayout
+        tabLayout.addTab(firstTab);
         tabLayout.addTab(secondTab);
         tabLayout.addTab(thirdTab);
         tabLayout.addTab(fourthTab);
 
+        // create custom adapter
+        final ScoreAdapter scoreAdapater = new ScoreAdapter();
 
-       final ScoreAdapter scoreDayAdapter = new ScoreAdapter();
-            SR = new ScoreReceiver("Araconda");
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    ArrayList<String> tempScoreList = null;
-                    try {
-                        tempScoreList = SR.geefHuidigeDatumScores();
-                    } catch (SQLException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    for (String s : tempScoreList) {
-                        String[] splits = s.split("~");
-                        Score tempScore = new Score(splits[1],Integer.valueOf(splits[2]));
-                        scoreList.add(tempScore);
-                        System.out.println(tempScore);
-                    }
-                }
-            });
-            t.start();
+        // create the arraylists with data
+        dayScore = new ArrayList<>();
+        weekScore = new ArrayList<>();
+        monthScore = new ArrayList<>();
+        allTimeScore = new ArrayList<>();
 
+        // fill arraylists with scores from database
+        getScore("Anaconda", 0);
+        getScore("Anaconda", 1);
+        getScore("Anaconda", 2);
+        getScore("Anaconda", 3);
 
+        // create recycleview
+        final RecyclerView scoreRecyclerView = createRecyclerView(R.id.scoreboardDayRecyclerView,
+                view, scoreAdapater);
 
-        ScoreAdapter scoreWeekAdapter = createDummyAdapter();
-        ScoreAdapter scoreYearAdapter = createDummyAdapter();
-        final ScoreAdapter scoreAllAdapter = createDummyAdapter();
-
-        final RecyclerView scoreDayRecyclerView = createRecyclerView(R.id.scoreboardDayRecyclerView,
-                view, scoreDayAdapter);
-//        RecyclerView scoreWeekRecyclerView = createRecyclerView(R.id.scoreboardWeekRecyclerView,
-//                view, scoreWeekAdapter);
-//        RecyclerView scoreYearRecyclerView = createRecyclerView(R.id.scoreboardYearRecyclerView,
-//                view, scoreYearAdapter);
-//        RecyclerView scoreAllRecyclerView = createRecyclerView(R.id.scoreboardAllRecyclerView,
-//                view, scoreAllAdapter);
-
+        // Tab selected listener
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
-                        scoreDayRecyclerView.setBackgroundColor(Color.RED);
+                        pos = 0;
                         break;
                     case 1:
-                        scoreDayRecyclerView.setBackgroundColor(Color.BLUE);
+                        pos = 1;
                         break;
                     case 2:
-                        scoreDayRecyclerView.setBackgroundColor(Color.YELLOW);
+                        pos = 2;
                         break;
                     case 3:
-                        scoreDayRecyclerView.setBackgroundColor(Color.GREEN);
+                        pos = 3;
                         break;
 
                 }
-                scoreDayRecyclerView.setVisibility(View.VISIBLE);
+                scoreRecyclerView.setVisibility(View.VISIBLE);
 
             }
 
@@ -126,47 +118,104 @@ public class AttractionDetailFragment extends Fragment {
 
         });
 
+        // Set icon bottom of the page
         imageView = (ImageView) view.findViewById(R.id.mapImageView);
         if (imageRes >= 0)
             imageView.setImageResource(imageRes);
 
+        // Handler for setting adapter data
         final android.os.Handler h = new android.os.Handler();
         Runnable r = new Runnable() {
             @Override
             public void run() {
-                scoreDayAdapter.setAll(scoreList);
-                h.postDelayed(this,1000);
-                Log.d("doe"," ik dit");
+                switch (pos) {
+                    case 0:
+                        scoreAdapater.setAll(dayScore);
+                        break;
+                    case 1:
+                        scoreAdapater.setAll(weekScore);
+                        break;
+                    case 2:
+                        scoreAdapater.setAll(monthScore);
+                        break;
+                    case 3:
+                        scoreAdapater.setAll(allTimeScore);
+                        break;
+                }
+                h.postDelayed(this, 200);
+
             }
         };
         h.post(r);
-
-
         return view;
     }
 
     private RecyclerView createRecyclerView(@IdRes int viewId, View view, ScoreAdapter adapter) {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(viewId);
-        recyclerView.setLayoutManager(new ScoreLayoutManager(getContext()).enableScrolling(false));
+        recyclerView.setLayoutManager(new ScoreLayoutManager(getContext()).enableScrolling(true));
         recyclerView.setAdapter(adapter);
         return recyclerView;
-    }
-
-    private ScoreAdapter createDummyAdapter() {
-        ScoreAdapter a = new ScoreAdapter();
-        a.setAll(Arrays.asList(
-                new Score("LiPa450", 1676),
-                new Score("Co-en-co-xxx", 1942),
-                new Score("PietjePuk", 1438),
-                new Score("xxx_360hans_xxx", 1700),
-                new Score("Jaap1995", 2000)
-        ));
-        return a;
     }
 
     public void setImageRes(@DrawableRes int img) {
         imageRes = img;
         if (imageView != null)
             imageView.setImageResource(img);
+    }
+
+    // Naam = naam attractie in database, int frequentie = dag/week/maand/alltime voor 0-3;
+    public ArrayList<Score> getScore(String naam, final int frequentie) {
+        SR = new ScoreReceiver(naam);
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<String> tempScoreList = new ArrayList<>();
+                try {
+                    switch (frequentie) {
+                        case 0:
+                            dayScore.clear();
+                            tempScoreList.clear();
+                            tempScoreList.addAll(SR.geefHuidigeDatumScores());
+                            dayScore.addAll(scoreParsing(tempScoreList));
+                            System.out.println("lengte" + dayScore.size());
+                            break;
+                        case 1:
+                            weekScore.clear();
+                            tempScoreList.clear();
+                            tempScoreList.addAll(SR.geefWeekScores());
+                            weekScore.addAll(scoreParsing(tempScoreList));
+                            break;
+                        case 2:
+                            monthScore.clear();
+                            tempScoreList.clear();
+                            tempScoreList.addAll(SR.geefMaandScores());
+                            monthScore.addAll(scoreParsing(tempScoreList));
+                            break;
+                        case 3:
+                            allTimeScore.clear();
+                            tempScoreList.clear();
+                            tempScoreList.addAll(SR.geefAllTimeScores());
+                            allTimeScore.addAll(scoreParsing(tempScoreList));
+                            break;
+                    }
+
+                } catch (ClassNotFoundException | SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t.start();
+        return scoreList;
+    }
+
+    // Data uit database parsen naar scores
+    public ArrayList<Score> scoreParsing(ArrayList<String> tempList) {
+        ArrayList<Score> tempScoreList = new ArrayList<>();
+        for (String s : tempList) {
+            String[] splits = s.split("~");
+            Score tempScore = new Score(splits[1], Integer.valueOf(splits[2]));
+            tempScoreList.add(tempScore);
+        }
+        return tempScoreList;
     }
 }

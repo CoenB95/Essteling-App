@@ -45,14 +45,17 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/scoreboardDayRecyclerView"
-        android:layout_width="327dp"
+        android:layout_width="match_parent"
         android:layout_height="272dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="7dp"
+        android:isScrollContainer="true"
+        android:scrollbarThumbVertical="@color/colorAccent2"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TabLayout_id"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4" />
+        app:layout_constraintTop_toBottomOf="@+id/TabLayout_id" />
 </android.support.constraint.ConstraintLayout>
