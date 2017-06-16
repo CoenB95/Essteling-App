@@ -65,7 +65,7 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
         nameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newName = nameEdit.getText().toString();
+                String newName = nameEdit.getText().toString().trim();
                 if(!newName.equals("")){
                     boolean isBadWord = false;
                     String newNameLowercase = newName.toLowerCase();
