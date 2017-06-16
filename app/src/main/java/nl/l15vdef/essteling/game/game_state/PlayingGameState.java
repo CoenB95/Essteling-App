@@ -4,14 +4,17 @@ import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.game.GameStateManager;
 import nl.l15vdef.essteling.game.OnSwipeListener;
 import nl.l15vdef.essteling.game.game_objects.Background;
@@ -48,6 +51,8 @@ public class PlayingGameState extends State {
     private long timer;
     private Snake snake;
 
+    private MediaPlayer music;
+    private MediaPlayer coinSound;
 
 
 
@@ -79,7 +84,10 @@ public class PlayingGameState extends State {
         b = new Background(v);
         r = new Raster(v,gm);
 
-
+        music = MediaPlayer.create(v.getContext(), R.raw.smuz__primitive_snake_charmer_melody);
+        music.setVolume(0.1f,0.1f);
+        music.setLooping(true);
+        music.start();
 
         timer = 0;
 
@@ -95,6 +103,7 @@ public class PlayingGameState extends State {
                 return true;
             }
         });
+        coinSound = MediaPlayer.create(v.getContext(),R.raw.projectsu012__coins_1);
     }
 
     @Override
@@ -119,6 +128,10 @@ public class PlayingGameState extends State {
         pickUp.intersect(snake);
         if(pickUp.isShouldRemove()) {
             Point p = null;
+
+
+            coinSound.start();
+
             boolean shouldTry = true;
             while (shouldTry){
                 p = new Point((int) (Math.random() * row), (int) (Math.random() * col));
@@ -132,6 +145,7 @@ public class PlayingGameState extends State {
 
         //detect if an game has ended
         if(snake.isDead()){
+            music.stop();
             gm.setState(GameStateManager.GAMEOVER_STATE,snake.getScore());
         }
     }

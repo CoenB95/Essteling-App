@@ -6,17 +6,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,6 +58,8 @@ public class HomepageFragment extends Fragment {
                 new Score("xxx_360hans_xxx", 1700),
                 new Score("Jaap1995", 2000)
         ));
+
+
 
 		List<String> strings = new ArrayList<>();
 		final List<String> attractions = new ArrayList<>();
@@ -127,12 +132,12 @@ public class HomepageFragment extends Fragment {
         scoreRecyclerView.setLayoutManager(new ScoreLayoutManager(getContext())
                 .enableScrolling(false));
         scoreRecyclerView.setAdapter(scoreAdapter);
-
-
-
+        scoreRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         return view;
     }
+
+
 
 
     @Override
