@@ -24,7 +24,29 @@
     <string name="faq_a_launchGame">
         U kunt spellen opstarten vanaf het home-menu. Wanneer attracties gevonden worden,
         verschijnen ze onder "nabije attracties". Als u op de naam van de attractie of op de
-        paarse "spelen" knop drukt, start het spel op.
+        paarse "spelen" knop drukt, start het spel op. Bluetooth moet aan staan om de nabije
+        spellen te kunnen zien, controleer dit dus als er niks gevonden kan worden.
+    </string>
+    <string name="faq_q_viewHighscore">Waar kan ik mijn highscore zien?</string>
+    <string name="faq_a_viewHighscore">
+        Uw highscore wordt weergegeven in het game-over scherm van het spel.
+    </string>
+    <string name="faq_q_controlsAnaconda">
+        Hoe werkt het spel van Anaconda?
+    </string>
+    <string name="faq_a_controlsAnaconda">
+        In Anaconda speel je als een slang met goudkoorts. Je moet proberen zoveel
+        mogelijk munten op te eten. Als je een munt opeet, wordt de slang groter.
+        Om de slang een bepaalde richting in te sturen, moet je die richting in swipen.
+        De slang kan ook van het speelveld af en komt dan aan de andere kant het speelveld weer op.
+    </string>
+    <string name="faq_q_viewRideScores">
+        Waar kan ik de scores van een specifieke attractie zien?
+    </string>
+    <string name="faq_a_viewRideScores">
+        In het navigatiemenu staat een tabje met "Attracties". Als u hierop drukt wordt u
+        doorgestuurd naar een pagina met een lijst van alle attracties. Als u op een bepaalde
+        attractie drukt, kunt u de scores van die attractie zien.
     </string>
 
     <string-array name="country_arrays">
