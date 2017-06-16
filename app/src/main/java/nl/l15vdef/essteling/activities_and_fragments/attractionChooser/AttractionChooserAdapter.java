@@ -40,9 +40,7 @@ public class AttractionChooserAdapter extends ArrayAdapter {
         title.setText( ((Attraction) getItem(position)).getName());
 
 
-        //dummy
-        TextView amountOfplayers = (TextView) convertView.findViewById(R.id.activit_about_list_of_attractions_custom_row_amount_online_players_id);
-        amountOfplayers.setText("70 players (Dummhy)");
+
 
         return convertView;
     }

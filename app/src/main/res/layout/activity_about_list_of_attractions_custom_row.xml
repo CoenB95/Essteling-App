@@ -19,17 +19,6 @@
         app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/activit_about_list_of_attractions_custom_row_amount_online_players_id"
-        android:layout_width="249dp"
-        android:layout_height="21dp"
-        android:layout_marginLeft="17dp"
-        android:layout_marginTop="15dp"
-        android:fontFamily="sans-serif"
-        android:text="70 player"
-        app:layout_constraintLeft_toRightOf="@+id/activit_about_list_of_attractions_custom_row_attraction_image_id"
-        app:layout_constraintTop_toBottomOf="@+id/activit_about_list_of_attractions_custom_row_title_attraction" />
-
-    <TextView
         android:id="@+id/activit_about_list_of_attractions_custom_row_title_attraction"
         android:layout_width="248dp"
         android:layout_height="37dp"
