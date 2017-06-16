@@ -46,7 +46,9 @@ public class GameOverState extends State{
         if(objects.length >= 1){
             score = (int) objects[0];
             Boolean mayAcces = prefsi.getBoolean("mayAcces" , false);
-            if(mayAcces == true) {
+            //// TODO: 16/06/2017
+            //wifi didn't work
+            if(true) {
                 ScoreSender ScS = new ScoreSender("Anaconda");
                 try {
                     if(score > 0)

@@ -1,5 +1,7 @@
 package nl.l15vdef.essteling.data;
 
+import android.util.Log;
+
 import java.sql.SQLException;
 
 import nl.l15vdef.essteling.DatabaseConnector;
@@ -28,7 +30,7 @@ public class ScoreSender {
     public void voegScoreToe(String naam , int score) throws SQLException, ClassNotFoundException {
         DatabaseConnector con = new DatabaseConnector(host , dataBase , gebNaam , password);
         con.voegDataLineToe(attractieNaam , naam , score);
-        System.out.println("Data toegevoegd");
+        Log.d("Data","Data toegevoegd");
         con.closeConnection();
     }
 }
