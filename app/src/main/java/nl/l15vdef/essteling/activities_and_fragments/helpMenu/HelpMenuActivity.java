@@ -28,6 +28,13 @@ public class HelpMenuActivity extends Fragment {
         list = new ArrayList<>();
         list.add(new FAQ(getContext().getResources().getString(R.string.faq_q_launchGame),
                 getContext().getResources().getString(R.string.faq_a_launchGame)));
+        list.add(new FAQ(getContext().getResources().getString(R.string.faq_q_controlsAnaconda),
+                getContext().getResources().getString(R.string.faq_a_controlsAnaconda)));
+        list.add(new FAQ(getContext().getResources().getString(R.string.faq_q_viewHighscore),
+                getContext().getResources().getString(R.string.faq_a_viewHighscore)));
+        list.add(new FAQ(getContext().getResources().getString(R.string.faq_q_viewRideScores),
+                getContext().getResources().getString(R.string.faq_a_viewRideScores)));
+
 
         adapter = new HelpMenuAdapter(v.getContext(), list);
 
