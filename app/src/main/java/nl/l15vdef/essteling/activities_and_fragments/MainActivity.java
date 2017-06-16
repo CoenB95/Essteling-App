@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -37,9 +38,12 @@ public class MainActivity extends AppCompatActivity
 
     public static final String MAIN_BACKSTACK_TAG = "mainstack";
     private static boolean starting;
+    private TextView playerNameTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final SharedPreferences prefss = this.getSharedPreferences("Var_Score_Data", MODE_PRIVATE);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -54,12 +58,19 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+
+
+
+        playerNameTV = (TextView) headerView.findViewById(R.id.navMenu_playerName);
+        playerNameTV.setText(prefss.getString("Name", "No name set!"));
+
         navigationView.setNavigationItemSelectedListener(this);
 
-        ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE} , 1);
-        ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE} , 2);
-        ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.INTERNET} , 3);
-        ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.ACCESS_NETWORK_STATE} ,4);
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.INTERNET}, 3);
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_NETWORK_STATE}, 4);
 
         if (savedInstanceState == null) {
             Fragment fragment = new HomepageFragment();
@@ -69,13 +80,13 @@ public class MainActivity extends AppCompatActivity
             ft.commit();
         }
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this,R.style.EditName));
+        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.EditName));
         builder.setTitle("Please input your name");
 
         // Set up the input
         final EditText input = new EditText(this);
         input.setTextColor(getResources().getColor(R.color.colorAccent2));
-        input.getBackground().mutate().setColorFilter(ContextCompat.getColor(this,R.color.colorAccent2), PorterDuff.Mode.SRC_ATOP);
+        input.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent2), PorterDuff.Mode.SRC_ATOP);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
@@ -95,14 +106,14 @@ public class MainActivity extends AppCompatActivity
         d.setCanceledOnTouchOutside(false);
 
 
-        Log.d("name",sharedPreferences.getString("Name","Anonymous"));
-        if(sharedPreferences.getString("Name", "Anonymous") == "Anonymous") {
+        Log.d("name", sharedPreferences.getString("Name", "Anonymous"));
+        if (sharedPreferences.getString("Name", "Anonymous") == "Anonymous") {
             d.show();
             d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String name = input.getText().toString();
-                    if(name.length() > 0) {
+                    if (name.length() > 0) {
                         editor.putString("Name", name);
                         editor.apply();
                         d.dismiss();
@@ -110,6 +121,7 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
+
     }
 
 
