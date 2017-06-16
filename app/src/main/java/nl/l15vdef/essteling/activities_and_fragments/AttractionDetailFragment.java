@@ -38,6 +38,7 @@ public class AttractionDetailFragment extends Fragment {
     private int pos;
     private GestureDetector gestureDetector;
     private GestureDetector gestureDetector2;
+    private String attractionName;
     @DrawableRes
     int imageRes = -1;
 
@@ -77,10 +78,15 @@ public class AttractionDetailFragment extends Fragment {
         allTimeScore = new ArrayList<>();
 
         // fill arraylists with scores from database
-        getScore("Anaconda", 0);
-        getScore("Anaconda", 1);
-        getScore("Anaconda", 2);
-        getScore("Anaconda", 3);
+        getScore(0);
+        getScore(1);
+        getScore(2);
+        getScore(3);
+
+//        "Anaconda",
+//                "Anaconda",
+//                "Anaconda",
+//                "Anaconda",
 
         // create recycleview
         final RecyclerView scoreRecyclerView = createRecyclerView(R.id.scoreboardDayRecyclerView,
@@ -129,13 +135,13 @@ public class AttractionDetailFragment extends Fragment {
         if (imageRes >= 0)
             imageView.setImageResource(imageRes);
 
-        gestureDetector = new GestureDetector(view.getContext(),new OnSwipeListener(){
+        gestureDetector = new GestureDetector(view.getContext(), new OnSwipeListener() {
             @Override
             public boolean onSwipe(OnSwipeListener.Direction direction) {
-                if(direction == Direction.left && pos!=tabLayout.getTabCount()-1)
-                    tabLayout.getTabAt(pos+1).select();
-                if(direction == Direction.right && pos>=1)
-                    tabLayout.getTabAt(pos-1).select();
+                if (direction == Direction.left && pos != tabLayout.getTabCount() - 1)
+                    tabLayout.getTabAt(pos + 1).select();
+                if (direction == Direction.right && pos >= 1)
+                    tabLayout.getTabAt(pos - 1).select();
                 return true;
             }
         });
@@ -190,9 +196,19 @@ public class AttractionDetailFragment extends Fragment {
             imageView.setImageResource(img);
     }
 
+    public void setAttractionName(String name) {
+        attractionName = name;
+        if (name.equals("Vogel Jazz"))
+            attractionName = "Vogeljazz";
+        else if (name.equals("Sjoris en de Draak"))
+            attractionName = "SjorisendeDraak";
+        else if (name.equals("Vliegende Duitser"))
+            attractionName = "VliegendeDuitser";
+    }
+
     // Naam = naam attractie in database, int frequentie = dag/week/maand/alltime voor 0-3;
-    public ArrayList<Score> getScore(String naam, final int frequentie) {
-        SR = new ScoreReceiver(naam);
+    public ArrayList<Score> getScore(final int frequentie) {
+        SR = new ScoreReceiver(attractionName);
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -204,7 +220,6 @@ public class AttractionDetailFragment extends Fragment {
                             tempScoreList.clear();
                             tempScoreList.addAll(SR.geefHuidigeDatumScores());
                             dayScore.addAll(scoreParsing(tempScoreList));
-                            System.out.println("lengte" + dayScore.size());
                             break;
                         case 1:
                             weekScore.clear();
