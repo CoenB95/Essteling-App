@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:text="@string/network"
         android:textAlignment="center"
@@ -142,7 +142,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="26dp"
         android:text="@string/Change"
         android:textColor="@android:color/black"
         android:textSize="18sp"
@@ -153,11 +153,12 @@
         android:id="@+id/name_change_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="2dp"
+        android:layout_marginLeft="11dp"
         android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text=""
+        android:textColorLink="@color/colorAccent2"
         app:layout_constraintLeft_toRightOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/name_current_name" />
 
@@ -177,7 +178,7 @@
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="383dp"
+        android:layout_width="match_parent"
         android:layout_height="8dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"

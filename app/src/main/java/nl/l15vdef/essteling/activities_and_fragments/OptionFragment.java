@@ -3,11 +3,15 @@ package nl.l15vdef.essteling.activities_and_fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.util.Locale;
 
 import nl.l15vdef.essteling.R;
@@ -51,6 +56,8 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
         currentName.setText(prefss.getString("Name" , "No name set!"));
 
         nameEdit = (EditText) view.findViewById(R.id.name_change_name);
+        nameEdit.getBackground().mutate().setColorFilter(ContextCompat.getColor(getActivity().getApplicationContext(),R.color.colorAccent2), PorterDuff.Mode.SRC_ATOP);
+        setCursorDrawableColor(nameEdit,R.color.colorAccent2);
         nameButton = (Button) view.findViewById(R.id.name_button_name);
         nameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,6 +215,30 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
 
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
+    }
+
+    public static void setCursorDrawableColor(EditText editText, int color) {
+        try {
+            Field fCursorDrawableRes =
+                    TextView.class.getDeclaredField("mCursorDrawableRes");
+            fCursorDrawableRes.setAccessible(true);
+            int mCursorDrawableRes = fCursorDrawableRes.getInt(editText);
+            Field fEditor = TextView.class.getDeclaredField("mEditor");
+            fEditor.setAccessible(true);
+            Object editor = fEditor.get(editText);
+            Class<?> clazz = editor.getClass();
+            Field fCursorDrawable = clazz.getDeclaredField("mCursorDrawable");
+            fCursorDrawable.setAccessible(true);
+
+            Drawable[] drawables = new Drawable[2];
+            Resources res = editText.getContext().getResources();
+            drawables[0] = res.getDrawable(mCursorDrawableRes);
+            drawables[1] = res.getDrawable(mCursorDrawableRes);
+            drawables[0].setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            drawables[1].setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            fCursorDrawable.set(editor, drawables);
+        } catch (final Throwable ignored) {
+        }
     }
 
 
