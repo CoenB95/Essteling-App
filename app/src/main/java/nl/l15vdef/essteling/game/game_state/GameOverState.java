@@ -26,6 +26,9 @@ public class GameOverState extends State{
     private int score;
     private int hightscore;
 
+    private Rect resetRect;
+    private Rect goBackRect;
+
     public GameOverState(View v, GameStateManager gm){
         super(v, gm);
         init();
@@ -61,6 +64,15 @@ public class GameOverState extends State{
                 hightscore = score;
             }
         }
+
+
+        int x = gm.getScreenDimensions().x/2 - 800;
+        int y = gm.getScreenDimensions().y/2;
+        resetRect = new Rect(x,y,x + 400,y + 200);
+        x = gm.getScreenDimensions().x/2 + 400;
+        y = gm.getScreenDimensions().y/2;
+        goBackRect = new Rect(x,y,x +400 , y + 200 );
+
     }
 
     @Override
@@ -98,13 +110,41 @@ public class GameOverState extends State{
         canvas.drawText(gameOverText,gm.getScreenDimensions().x/2 - width/2,gm.getScreenDimensions().y/2 - 200,p);
 
 
+        canvas.drawRect(resetRect,p);
+        canvas.drawRect(goBackRect,p);
+
+        p.setColor(v.getResources().getColor(android.R.color.white));
+        p.setTextSize(80);
+
+        String tryAgain = "Try again";
+        p.getTextBounds(tryAgain,0,tryAgain.length(),bounds);
+        height = bounds.height();
+        width = bounds.width();
+
+        canvas.drawText(tryAgain,resetRect.centerX() - width/2,resetRect.centerY() + height/2,p);
+
+        String goBack = "Go back";
+        p.getTextBounds(goBack,0,goBack.length(),bounds);
+        height = bounds.height();
+        width = bounds.width();
+
+        canvas.drawText(goBack,goBackRect.centerX() - width/2 ,goBackRect.centerY() + height/2,p);
+
 
         p.setColor(color);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        finishFunction();
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+        if(resetRect.contains( x,y))
+        {
+            gm.setState(GameStateManager.STARTING_STATE);
+        }else if(goBackRect.contains(x,y)){
+            finishFunction();
+        }
+
         return false;
     }
 
