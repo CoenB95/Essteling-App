@@ -86,8 +86,6 @@ public class MainActivity extends AppCompatActivity
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this,R.style.EditName));
         builder.setTitle(getString(R.string.name_dialog_title));
-        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.EditName));
-        builder.setTitle("Please input your name");
 
         // Set up the input
         final EditText input = new EditText(this);
