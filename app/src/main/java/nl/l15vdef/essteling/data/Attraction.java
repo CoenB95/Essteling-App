@@ -46,11 +46,11 @@ public class Attraction implements Serializable{
         ));
         attractions.add(new Attraction(
                 R.drawable.vliegende_duitser,
-                "Vliegende duitser","test"
+                "Vliegende Duitser","test"
         ));
         attractions.add(new Attraction(
                 R.drawable.vogel_jazz,
-                "Vogel jazz","test"
+                "Vogel Jazz","test"
         ));
 
         return attractions;

@@ -8,7 +8,6 @@ import android.view.WindowManager;
 public class GameScreenActivity extends AppCompatActivity{
 
     private GameView v;
-    private float x,y;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,28 +17,9 @@ public class GameScreenActivity extends AppCompatActivity{
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
-
         v = new GameView(this);
-        x = 0;
-        y = 0;
         setContentView(v);
-
-        //Intent i = getIntent();
-        //at = (Attraction) i.getSerializableExtra("AT");
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        v.pause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        v.resume();
-    }
-
 }
 
 

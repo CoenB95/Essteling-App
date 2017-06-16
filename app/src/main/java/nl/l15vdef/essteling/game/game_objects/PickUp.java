@@ -8,9 +8,8 @@ import android.graphics.Point;
 import android.view.View;
 
 import nl.l15vdef.essteling.R;
+import nl.l15vdef.essteling.game.game_objects.snake.Snake;
 import nl.l15vdef.essteling.game.game_state.PlayingGameState;
-
-import static nl.l15vdef.essteling.game.game_state.PlayingGameState.*;
 
 /**
  * Created by Maarten on 08/06/2017.
@@ -41,10 +40,11 @@ public class PickUp extends GameObject {
         canvas.drawBitmap(image,playingGameState.offSet + rasterChords.x * playingGameState.pixelPerRow,rasterChords.y * playingGameState.pixelPerCol,p);
     }
 
-    public void intersect(Snake snake){
+    public boolean intersect(Snake snake){
         if(rasterChords.equals(snake.getRasterChords())){
             shouldRemove = true;
         }
+        return true;
     }
 
     public Point getRasterChords() {

@@ -9,6 +9,8 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
+import nl.l15vdef.essteling.R;
+
 /**
  * Created by Maarten on 08/06/2017.
  */
@@ -20,10 +22,14 @@ public class StartGameButton extends GameObject {
     private Rect rect;
     private int screenWidht;
     private int screenHeight;
+    private String text;
+    private int backgroundColor;
 
-    public StartGameButton(View v, Point p, int with, int height) {
+    public StartGameButton(View v, Point p, int with, int height,String text,int color) {
         super(v);
         this.p = p;
+        this.text = text;
+        this.backgroundColor = color;
         this.widthAndHeight = new Point(with,height);
         rect = new Rect(p.x,p.y,p.x + with,p.y + height);
         WindowManager wm = (WindowManager) v.getContext().getSystemService(Context.WINDOW_SERVICE);
@@ -47,17 +53,17 @@ public class StartGameButton extends GameObject {
         p.setColor(v.getResources().getColor(android.R.color.black));
         canvas.drawRect(new Rect(rect.left - 3,rect.top - 3,rect.right + 3,rect.bottom +
                 3),p);
-        p.setColor(v.getResources().getColor(android.R.color.holo_red_light));
+        p.setColor(v.getResources().getColor(backgroundColor));
         canvas.drawRect(rect,p);
         Rect bounds = new Rect();
-        String startGameText = "Start game";
-        p.getTextBounds(startGameText, 0, startGameText.length(), bounds);
+
+        p.getTextBounds(text, 0, text.length(), bounds);
         int height = bounds.height();
         int width = bounds.width();
 
         p.setColor(v.getResources().getColor(android.R.color.white));
         p.setTextSize(40);
-        canvas.drawText("Start game",screenWidht/2 - width,screenHeight/2 - height,p);
+        canvas.drawText(text,screenWidht/2 - width,screenHeight/2 - height,p);
 
 
         p.setColor(color);

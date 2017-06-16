@@ -11,7 +11,9 @@ import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import nl.l15vdef.essteling.game.game_state.GameOverState;
 import nl.l15vdef.essteling.game.game_state.PlayingGameState;
 import nl.l15vdef.essteling.game.game_state.StartingGameState;
 import nl.l15vdef.essteling.game.game_state.State;
@@ -26,6 +28,7 @@ public class GameStateManager {
 
     public final static int STARTING_STATE = 0;
     public final static int PLAYING_STATE  = 1;
+    public final static int GAMEOVER_STATE = 2;
 
     private int currentState;
 
@@ -36,6 +39,7 @@ public class GameStateManager {
 
         gameStates.add(new StartingGameState(v,this));
         gameStates.add(new PlayingGameState(v,this));
+        gameStates.add(new GameOverState(v,this));
 
         currentState = 0;
     }
@@ -48,12 +52,19 @@ public class GameStateManager {
         gameStates.get(currentState).draw(canvas,p);
     }
 
-    public void onTouchEvent(MotionEvent event) {
-        gameStates.get(currentState).onTouchEvent(event);
+    public boolean onTouchEvent(MotionEvent event) {
+        return gameStates.get(currentState).onTouchEvent(event);
     }
 
     public void setState(int state) {
         currentState = state;
+        gameStates.get(currentState).init();
+    }
+
+    public void setState(int state,Object... objects){
+        currentState = state;
+        gameStates.get(currentState).init(objects);
+
     }
 
     public Point getScreenDimensions(){

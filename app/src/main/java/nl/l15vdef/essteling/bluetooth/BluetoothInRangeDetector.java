@@ -135,6 +135,7 @@ public class BluetoothInRangeDetector implements Runnable{
     /**
      * This method stops the bluetooth search thread from running
      */
+
     public void stop(){
         Log.d("Bluetooth","bluetooth is stopped");
         try {
@@ -151,10 +152,12 @@ public class BluetoothInRangeDetector implements Runnable{
 
     public void resume(){
         Log.d("Bluetooth","resume");
-        running = true;
-        bluetoothSearchHandler.post(bluetoothSearchLoop);
-        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        activity.registerReceiver(mReceiver, filter);
+        if(!running) {
+            running = true;
+            bluetoothSearchHandler.post(bluetoothSearchLoop);
+            IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+            activity.registerReceiver(mReceiver, filter);
+        }
     }
 
 
@@ -174,7 +177,6 @@ public class BluetoothInRangeDetector implements Runnable{
             bluetoothSearchLoop = new Runnable() {
                 @Override
                 public void run() {
-                    Log.d(TAG,"Checking bluetooth device in range.");
                     for (String s : inRanges.keySet()) {
                         inRanges.put(s,false);
                     }
@@ -192,7 +194,11 @@ public class BluetoothInRangeDetector implements Runnable{
                     //clear devices and research
                     bluetoothDevices.clear();
                     mBluetoothAdapter.cancelDiscovery();
+                    if(!mBluetoothAdapter.isEnabled()){
+                        mBluetoothAdapter.enable();
+                    }
                     if(running) {
+                        Log.d(TAG,"Checking bluetooth device in range.");
                         mBluetoothAdapter.startDiscovery();
                         listener.bluetoothChecked(inRanges);
                         bluetoothSearchHandler.postDelayed(this, updateTime);

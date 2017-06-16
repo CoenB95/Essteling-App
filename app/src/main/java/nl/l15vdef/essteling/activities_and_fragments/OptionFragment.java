@@ -3,23 +3,32 @@ package nl.l15vdef.essteling.activities_and_fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.util.Locale;
 
 import nl.l15vdef.essteling.R;
+import nl.l15vdef.essteling.data.WordFilter;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -30,33 +39,113 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
     private Spinner difSpinner;
     private Configuration config ;
 
+    private TextView currentName;
+    private EditText nameEdit;
+    private Button nameButton;
 
+
+    private WordFilter wordFilter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_option_fragment, container, false);
+        wordFilter = new WordFilter(getActivity());
         getActivity().setTitle(getResources().getString(R.string.settings));
+        final SharedPreferences prefs = getActivity().getSharedPreferences("Var_internet_acces", MODE_PRIVATE);
+        final SharedPreferences.Editor edit = getActivity().getSharedPreferences("Var_Score_Data", MODE_PRIVATE).edit();
+        final SharedPreferences prefss = getActivity().getSharedPreferences("Var_Score_Data", MODE_PRIVATE);
+
+        currentName = (TextView) view.findViewById(R.id.name_current_name);
+        currentName.setText(prefss.getString("Name" , "No name set!"));
+
+        nameEdit = (EditText) view.findViewById(R.id.name_change_name);
+        nameEdit.getBackground().mutate().setColorFilter(ContextCompat.getColor(getActivity().getApplicationContext(),R.color.colorAccent2), PorterDuff.Mode.SRC_ATOP);
+        setCursorDrawableColor(nameEdit,R.color.colorAccent2);
+        nameButton = (Button) view.findViewById(R.id.name_button_name);
+        nameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newName = nameEdit.getText().toString().trim();
+                if(!newName.equals("")){
+                    boolean isBadWord = false;
+                    String newNameLowercase = newName.toLowerCase();
+                    for (String s : wordFilter.getBannedwords()) {
+                        if(newNameLowercase.equals(s)){
+                            isBadWord = true;
+                        }
+                    }
+                    if(isBadWord){
+                        nameEdit.setText("");
+                        nameEdit.setHintTextColor(getResources().getColor(android.R.color.holo_red_dark));
+                        nameEdit.setHint(getString(R.string.name_warning_bad_word));
+                    }else {
+                        edit.putString("Name" , newName);
+                        edit.apply();
+                        currentName.setText(prefss.getString("Name" , "No name set!"));
+                    }
+                }
+            }
+        });
 
         checkWifiOnly = (Switch) view.findViewById(R.id.option_wifi_check);
+
+        checkWifiOnly.setChecked(prefs.getBoolean("Enabled" , false));
+
         languageSelection = (Spinner) view.findViewById(R.id.language_select_spin);
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.country_arrays, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
         languageSelection.setAdapter(adapter);
+        String langu = prefs.getString("Lang", "en");
+        if(langu.equals("en")){
+            languageSelection.setSelection(0);
+        }
+        if(langu.equals("nl")){
+            languageSelection.setSelection(1);
+        }
         languageSelection.setOnItemSelectedListener(this);
 
         difSpinner = (Spinner) view.findViewById(R.id.dif_select_spinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getActivity(),
                 R.array.moeilijkheid, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
         difSpinner.setAdapter(adapter2);
-        //difSpinner.setOnItemSelectedListener(this);
+        String diff = prefss.getString("Diff" , "Child");
+
+        if(diff.equals("Child")){
+            difSpinner.setSelection(0);
+        }
+        if(diff.equals("Teenager")){
+            difSpinner.setSelection(1);
+        }
+        if(diff.equals("Adult")){
+            difSpinner.setSelection(2);
+        }
+        difSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                final SharedPreferences.Editor editor = getActivity().getSharedPreferences("Var_Score_Data", MODE_PRIVATE).edit();
+
+                if(position == 0){
+                    editor.putString("Diff" , "Child");
+                    editor.apply();
+                }
+                if(position == 1){
+                    editor.putString("Diff" , "Teenager");
+                    editor.apply();
+                }
+                if(position == 2){
+                    editor.putString("Diff" , "Adult");
+                    editor.apply();
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         checkWifiConnection();
         return view;
@@ -71,10 +160,13 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
 
                 if(isChecked){
                     blockMobileInternet();
+                    editor.putBoolean("Enabled" , true);
+                    editor.apply();
                 }else{
                     mayAccesInternet = true;
                     editor.putBoolean("mayAcces" , mayAccesInternet);
-                    editor.commit();
+                    editor.putBoolean("Enabled" , false);
+                    editor.apply();
                 }
 
             }
@@ -111,13 +203,20 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
+        final SharedPreferences.Editor editor = getActivity().getSharedPreferences("Var_internet_acces", MODE_PRIVATE).edit();
+        final SharedPreferences prefs = getActivity().getSharedPreferences("Var_internet_acces", MODE_PRIVATE);
         System.out.println("Pos: " + pos + " ID: )" + id);
+
         String lang = "";
         if(pos == 0){
             lang = "en";
+            editor.putString("Lang" , lang);
+            editor.apply();
         }
         if(pos == 1){
             lang = "nl";
+            editor.putString("Lang" , lang);
+            editor.apply();
         }
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
@@ -132,6 +231,30 @@ public class OptionFragment extends Fragment implements AdapterView.OnItemSelect
 
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
+    }
+
+    public static void setCursorDrawableColor(EditText editText, int color) {
+        try {
+            Field fCursorDrawableRes =
+                    TextView.class.getDeclaredField("mCursorDrawableRes");
+            fCursorDrawableRes.setAccessible(true);
+            int mCursorDrawableRes = fCursorDrawableRes.getInt(editText);
+            Field fEditor = TextView.class.getDeclaredField("mEditor");
+            fEditor.setAccessible(true);
+            Object editor = fEditor.get(editText);
+            Class<?> clazz = editor.getClass();
+            Field fCursorDrawable = clazz.getDeclaredField("mCursorDrawable");
+            fCursorDrawable.setAccessible(true);
+
+            Drawable[] drawables = new Drawable[2];
+            Resources res = editText.getContext().getResources();
+            drawables[0] = res.getDrawable(mCursorDrawableRes);
+            drawables[1] = res.getDrawable(mCursorDrawableRes);
+            drawables[0].setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            drawables[1].setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            fCursorDrawable.set(editor, drawables);
+        } catch (final Throwable ignored) {
+        }
     }
 
 
