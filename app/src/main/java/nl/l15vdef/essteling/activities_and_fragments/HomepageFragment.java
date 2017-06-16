@@ -98,9 +98,7 @@ public class HomepageFragment extends Fragment {
                     if (!attractions.contains(deviceName)) {
                         attractions.add(deviceName);
                         Log.d(getTag() + "Bluetooth", deviceName + " was found");
-                        if (attractions.size() <= 0) {
-                            progressBar.setVisibility(View.VISIBLE);
-                        } else progressBar.setVisibility(View.INVISIBLE);
+                        progressBar.setVisibility(View.INVISIBLE);
                         attractionslistAdapter.notifyDataSetChanged();
                     }
                 }
