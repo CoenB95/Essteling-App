@@ -31,12 +31,14 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.activities_and_fragments.attractionChooser.AttractionChooserFragment;
 import nl.l15vdef.essteling.activities_and_fragments.helpMenu.HelpMenuActivity;
+import nl.l15vdef.essteling.data.WordFilter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static final String MAIN_BACKSTACK_TAG = "mainstack";
     private static boolean starting;
+    public WordFilter wordFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        wordFilter = new WordFilter(this);
 
         AndroidThreeTen.init(this);
 
@@ -70,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this,R.style.EditName));
-        builder.setTitle("Please input your name");
+        builder.setTitle(getString(R.string.name_dialog_title));
 
         // Set up the input
         final EditText input = new EditText(this);
@@ -103,10 +107,19 @@ public class MainActivity extends AppCompatActivity
                 public void onClick(View v) {
                     String name = input.getText().toString();
                     if(name.length() > 0) {
-                        editor.putString("Name", name);
-                        editor.apply();
-                        d.dismiss();
-                    }
+                        boolean isBadWord = false;
+                        for (String s : wordFilter.getBannedwords()) {
+                            if(name.equals(s)){
+                                isBadWord = true;
+                                d.setTitle("That word is not accepted");
+                            }
+                        }
+                        if(!isBadWord) {
+                            editor.putString("Name", name);
+                            editor.apply();
+                            d.dismiss();
+                        }
+                    }else d.setTitle(getString(R.string.name_size_is_too_damm_high));
                 }
             });
         }

@@ -26,8 +26,30 @@
     <string name="faq_q_launchGame">How can I launch a game?</string>
     <string name="faq_a_launchGame">
         You can launch games from the home-menu. Once your device is connected to a specific
-        attraction, it will appear under "nearby attractions". IF you tap the name of the attraction
-        or the big purple "play" button next to it, the game will launch.
+        attraction, it will appear under "nearby attractions". If you tap the name of the attraction
+        or the big purple "play" button next to it, the game will launch. This app connects to
+        attractions with Bluetooth, so make sure Bluetooth is enabled.
+    </string>
+    <string name="faq_q_viewHighscore">Where can I view my highscore?</string>
+    <string name="faq_a_viewHighscore">
+        You can see your highscore in the game-over screen of a game.
+    </string>
+    <string name="faq_q_controlsAnaconda">
+        How does the game of Anaconda work?
+    </string>
+    <string name="faq_a_controlsAnaconda">
+        In Anaconda you play as a snake with gold fever. The aim of the game is eating as many
+        gold coins as possible. The snake will get longer every time you eat a coin.
+        If you want the snake to go in a certain direction, simply swipe in that direction.
+        The snake is also able to leave the playing field. It will return from the opposite side.
+    </string>
+    <string name="faq_q_viewRideScores">
+        Where can I see the scores of a specific attraction?
+    </string>
+    <string name="faq_a_viewRideScores">
+        There is a tab called "Attractions" in the navigation menu. This will bring you to
+        a list of attractions. You can view the scores of an attraction
+        by tapping on that attraction.
     </string>
 
     <string name="home">Home</string>
@@ -40,6 +62,10 @@
     <string name="dif">Difficult</string>
 
     <string name="network">Network</string>
+    <string name="name">Name</string>
+    <string name="current">Current:</string>
+    <string name="Change">Change</string>
+    <string name="Apply">Apply</string>
 
 
     <string-array name="country_arrays">
@@ -53,4 +79,5 @@
         <item>Adult</item>
     </string-array>
     <string name="name_size_is_too_damm_high">Maximum name size =15</string>
+    <string name="name_dialog_title">Please input your name</string>
 </resources>

@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -63,6 +64,9 @@ public class Snake extends GameObject {
     private Bitmap snakeTail;
     private Bitmap snakeTurn;
 
+    private MediaPlayer hiss1;
+    private MediaPlayer hiss2;
+
 
     long begin;
     public Snake(View v,Point rasterChords,PlayingGameState playingGameState) {
@@ -102,6 +106,10 @@ public class Snake extends GameObject {
         randomStraight.add(middleRight);
         randomStraight.add(middleStraight);
 
+        hiss1 = MediaPlayer.create(v.getContext(),R.raw.reitanna__hiss);
+        hiss2 = MediaPlayer.create(v.getContext(),R.raw.reitanna__hiss2);
+
+
         begin = System.currentTimeMillis();
     }
 
@@ -119,6 +127,13 @@ public class Snake extends GameObject {
             updateCoords(updateTime);
             detectDeath();
             begin = System.currentTimeMillis();
+
+            if((int) (Math.random() * 30) >= 29){
+                int id;
+                if(Math.random() > 0.5){
+                    hiss1.start();
+                }else hiss2.start();
+            }
         }else totalUpdateTime += updateTime;
     }
 
