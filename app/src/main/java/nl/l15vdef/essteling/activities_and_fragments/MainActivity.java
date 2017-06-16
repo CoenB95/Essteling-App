@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         layout.addView(input);
 
-        String[] s = { "Child", "Teenager ", "Adult" };
+        String[] s = { "Child", "Teenager", "Adult" };
 
         final ArrayAdapter<String> adp = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_spinner_item, s);
