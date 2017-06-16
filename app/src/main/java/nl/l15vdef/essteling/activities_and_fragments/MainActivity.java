@@ -24,7 +24,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -86,6 +89,9 @@ public class MainActivity extends AppCompatActivity
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this,R.style.EditName));
         builder.setTitle(getString(R.string.name_dialog_title));
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
 
         // Set up the input
         final EditText input = new EditText(this);
@@ -93,7 +99,20 @@ public class MainActivity extends AppCompatActivity
         input.getBackground().mutate().setColorFilter(ContextCompat.getColor(this, R.color.colorAccent2), PorterDuff.Mode.SRC_ATOP);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.setInputType(InputType.TYPE_CLASS_TEXT);
-        builder.setView(input);
+        layout.addView(input);
+
+        String[] s = { "Child", "Teenager", "Adult" };
+
+        final ArrayAdapter<String> adp = new ArrayAdapter<String>(MainActivity.this,
+                android.R.layout.simple_spinner_item, s);
+
+        final TextView tx = new TextView(MainActivity.this);
+        tx.setText(R.string.dif);
+        layout.addView(tx);
+        final Spinner sp = new Spinner(MainActivity.this);
+        sp.setAdapter(adp);
+        layout.addView(sp);
+        builder.setView(layout);
 
         final SharedPreferences.Editor editor = getSharedPreferences("Var_Score_Data", MODE_PRIVATE).edit();
         final SharedPreferences sharedPreferences = getSharedPreferences("Var_Score_Data", MODE_PRIVATE);
@@ -108,7 +127,6 @@ public class MainActivity extends AppCompatActivity
         builder.setCancelable(false);
         final AlertDialog d = builder.create();
         d.setCanceledOnTouchOutside(false);
-
 
         Log.d("name", sharedPreferences.getString("Name", "Anonymous"));
         if (sharedPreferences.getString("Name", "Anonymous") == "Anonymous") {
@@ -137,6 +155,9 @@ public class MainActivity extends AppCompatActivity
                         editor.apply();
                         d.dismiss();
                     }
+                    String dif = sp.getSelectedItem().toString();
+                    editor.putString("Diff" , dif);
+                    editor.apply();
                 }
             });
         }
