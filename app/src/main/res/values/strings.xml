@@ -81,4 +81,10 @@
     <string name="name_size_is_too_damm_high">Maximum name size =15</string>
     <string name="name_dialog_title">Please input your name</string>
     <string name="name_warning_bad_word">That name is not accepted</string>
+    <string name="loading">loading</string>
+    <string name="anaconda_start_game">Start game</string>
+    <string name="anaconda_score">score</string>
+    <string name="anaconda_game_over">Game over</string>
+    <string name="anaconda_try_again">Try again</string>
+    <string name="anaconda_go_back">Go back</string>
 </resources>

@@ -75,4 +75,10 @@
     <string name="Apply">Bevestig</string>
     <string name="name_dialog_title">Voeg je naam in</string>
     <string name="name_warning_bad_word">Niet geaccepteerde naam</string>
+    <string name="loading">laden</string>
+    <string name="anaconda_start_game">Begin spel</string>
+    <string name="anaconda_score">score</string>
+    <string name="anaconda_game_over">Game over</string>
+    <string name="anaconda_try_again">Opnieuw</string>
+    <string name="anaconda_go_back">Ga terug</string>
 </resources>
