@@ -10,6 +10,7 @@ import android.view.View;
 
 import java.sql.SQLException;
 
+import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.data.ScoreSender;
 import nl.l15vdef.essteling.game.GameStateManager;
 import nl.l15vdef.essteling.game.game_objects.BackgroundMoving;
@@ -39,7 +40,7 @@ public class GameOverState extends State{
         final SharedPreferences.Editor editor = v.getContext().getSharedPreferences("Var_Score_Data", MODE_PRIVATE).edit();
         final SharedPreferences prefs = v.getContext().getSharedPreferences("Var_Score_Data", MODE_PRIVATE);
         final SharedPreferences prefsi = v.getContext().getSharedPreferences("Var_internet_acces", MODE_PRIVATE);
-        String name = prefs.getString("Name" , "Anonymous");
+        final String name = prefs.getString("Name" , "Anonymous");
         bm = new BackgroundMoving(v,gm);
 
         score = 0;
@@ -49,15 +50,22 @@ public class GameOverState extends State{
             //// TODO: 16/06/2017
             //wifi didn't work
             if(true) {
-                ScoreSender ScS = new ScoreSender("Anaconda");
-                try {
-                    if(score > 0)
-                    ScS.voegScoreToe(name, score);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ScoreSender ScS = new ScoreSender("Anaconda");
+                        try {
+                            if(score > 0)
+                                ScS.voegScoreToe(name, score);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                t.start();
+
             }
             hightscore = prefs.getInt("HighScore" , 0);
             if(hightscore < score){
@@ -89,7 +97,7 @@ public class GameOverState extends State{
                 bm.draw(canvas,p);
         p.setTextSize(70);
         Rect bounds = new Rect();
-        String scoreText = "Score " + score;
+        String scoreText = v.getResources().getString(R.string.anaconda_score) + score;
         p.getTextBounds(scoreText, 0, scoreText.length(), bounds);
         int height = bounds.height();
         int width = bounds.width();
@@ -105,7 +113,7 @@ public class GameOverState extends State{
         p.setTextSize(100);
         p.setColor(v.getResources().getColor(android.R.color.holo_red_dark));
         p.setTextSize(100);
-        String gameOverText = "Game over";
+        String gameOverText = v.getResources().getString(R.string.anaconda_game_over);
         p.getTextBounds(gameOverText,0,gameOverText.length(),bounds);
         height = bounds.height();
         width = bounds.width();
@@ -118,14 +126,14 @@ public class GameOverState extends State{
         p.setColor(v.getResources().getColor(android.R.color.white));
         p.setTextSize(80);
 
-        String tryAgain = "Try again";
+        String tryAgain = v.getResources().getString(R.string.anaconda_try_again);
         p.getTextBounds(tryAgain,0,tryAgain.length(),bounds);
         height = bounds.height();
         width = bounds.width();
 
         canvas.drawText(tryAgain,resetRect.centerX() - width/2,resetRect.centerY() + height/2,p);
 
-        String goBack = "Go back";
+        String goBack = v.getResources().getString(R.string.anaconda_go_back);
         p.getTextBounds(goBack,0,goBack.length(),bounds);
         height = bounds.height();
         width = bounds.width();

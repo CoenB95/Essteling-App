@@ -35,10 +35,10 @@ public class AttractionDetailFragment extends Fragment {
     private ScoreReceiver SR;
     private ArrayList<Score> scoreList = new ArrayList<>();
     private ArrayList<Score> dayScore, weekScore, monthScore, allTimeScore;
-    private int pos;
+    private static int pos = -1;
     private GestureDetector gestureDetector;
     private GestureDetector gestureDetector2;
-    private String attractionName;
+    private static String attractionName;
     @DrawableRes
     int imageRes = -1;
 
@@ -49,6 +49,12 @@ public class AttractionDetailFragment extends Fragment {
 
         // get the reference of TabLayout
         final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.TabLayout_id);
+
+        if(pos == -1){
+            pos = 0;
+        }
+
+
 
         // Create new Tabs
         TabLayout.Tab firstTab = tabLayout.newTab();
@@ -67,6 +73,10 @@ public class AttractionDetailFragment extends Fragment {
         tabLayout.addTab(secondTab);
         tabLayout.addTab(thirdTab);
         tabLayout.addTab(fourthTab);
+
+
+        TabLayout.Tab tab = tabLayout.getTabAt(pos);
+        tab.select();
 
         // create custom adapter
         final ScoreAdapter scoreAdapater = new ScoreAdapter();
@@ -98,21 +108,7 @@ public class AttractionDetailFragment extends Fragment {
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                switch (tab.getPosition()) {
-                    case 0:
-                        pos = 0;
-                        break;
-                    case 1:
-                        pos = 1;
-                        break;
-                    case 2:
-                        pos = 2;
-                        break;
-                    case 3:
-                        pos = 3;
-                        break;
-
-                }
+                pos = tab.getPosition();
                 scoreRecyclerView.setVisibility(View.VISIBLE);
 
             }

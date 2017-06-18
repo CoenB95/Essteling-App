@@ -15,8 +15,8 @@ android {
         applicationId "nl.l15vdef.essteling"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 3
-        versionName "1.2-beta"
+        versionCode 4
+        versionName "1.4-beta"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

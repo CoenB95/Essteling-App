@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+import nl.l15vdef.essteling.R;
 import nl.l15vdef.essteling.game.GameStateManager;
 import nl.l15vdef.essteling.game.game_objects.Background;
 import nl.l15vdef.essteling.game.game_objects.BackgroundMoving;
@@ -35,7 +36,7 @@ public class StartingGameState extends State {
             int score =  (int) objects[0];
         }
         b = new BackgroundMoving(v,gm);
-        gameButton = new StartGameButton(v,new Point(gm.getScreenDimensions().x/2 - 250,gm.getScreenDimensions().y/2 - 100),500,200,"Start game",android.R.color.holo_red_light);
+        gameButton = new StartGameButton(v,new Point(gm.getScreenDimensions().x/2 - 250,gm.getScreenDimensions().y/2 - 100),500,200,v.getResources().getString(R.string.anaconda_start_game),android.R.color.holo_red_light);
         starting = false;
     }
 

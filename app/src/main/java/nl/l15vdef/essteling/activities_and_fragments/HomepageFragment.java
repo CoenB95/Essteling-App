@@ -53,15 +53,9 @@ public class HomepageFragment extends Fragment {
 		getActivity().setTitle(getResources().getString(R.string.home));
 
         scoreAttractionName = (TextView) view.findViewById(R.id.menu_ondertitel);
+        scoreAttractionName.setText(getString(R.string.loading));
 
         scoreAdapter = new ScoreAdapter();
-        scoreAdapter.setAll(Arrays.asList(
-                new Score("LiPa450", 1676),
-                new Score("Co-en-co-xxx", 1942),
-                new Score("PietjePuk", 1438),
-                new Score("xxx_360hans_xxx", 1700),
-                new Score("Jaap1995", 2000)
-        ));
 
         scoreData = new ScoreData();
 
